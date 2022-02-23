@@ -153,8 +153,160 @@
   margin-top: 0;
   margin-bottom: 60px;
 }
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vw;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+}
+
+.popup__heading {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+  margin: 34px 0 48px 36px;
+}
+
+.popup__container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  width: 430px;
+  height: 330px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+.popup__input-container {
+  display: flex;
+  flex-direction: column;
+  border-style: none;
+  padding: 0;
+  margin: 0 36px;
+}
+
+.popup__item {
+  box-sizing: border-box;
+  border-style: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0;
+}
+
+.popup__item[type="text"] {
+  padding-bottom: 8px;
+}
+.popup__save-button {
+  margin-top: 48px;
+  border-style: none;
+  background-color: #000000;
+  color: #ffffff;
+  height: 50px;
+  border-radius: 2px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.popup__item:last-of-type {
+  margin-top: 30px;
+}
+
+.popup_opened {
+  display: block;
+}
+
+.popup__close-button {
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  background-color: transparent;
+  border-style: none;
+  padding: 0;
+  margin: 0;
+  transition: opacity 0.2s ease-in;
+}
+.popup__close-button image {
+  height: 32px;
+  width: 32px;
+}
+
+.popup__close-button:hover {
+  opacity: 0.8;
+}
+
+input::-webkit-input-placeholder {
+  color: #000000;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 13px;
+}
+input::-moz-placeholder {
+  color: #000000;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 13px;
+}
+input::-ms-input-placeholder {
+  color: #000000;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 13px;
+}
+input::placeholder {
+  color: #000000;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 13px;
+}
 
 @media screen and (max-width: 900px) {
+  .popup__container {
+    width: 282px;
+    height: 322px;
+  }
+
+  .popup__heading {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 25px 0 75px 22px;
+  }
+  .popup__input-container {
+    margin: 0 22px;
+  }
+  .popup__save-button {
+    height: 48px;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 45px;
+  }
+
+  .popup__close-button {
+    top: -36px;
+    right: 0;
+  }
+
+  .popup__close-button img {
+    width: 20px;
+    height: 20px;
+  }
   .button__edit {
     width: 18px;
     height: 18px;
