@@ -1,0 +1,46 @@
+.popup__item {
+  box-sizing: border-box;
+  border-style: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0;
+}
+.popup__item[type="text"] {
+  padding-bottom: 8px;
+}
+
+.popup__item:last-of-type {
+  margin-top: 30px;
+}
+
+input::-webkit-input-placeholder {
+  color: #000000;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 13px;
+}
+input::-moz-placeholder {
+  color: #000000;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 13px;
+}
+input::-ms-input-placeholder {
+  color: #000000;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 13px;
+}
+input::placeholder {
+  color: #000000;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 13px;
+}
