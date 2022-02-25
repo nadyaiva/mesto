@@ -1,4 +1,4 @@
-let buttonEdit = document.querySelector('.button__edit');
+let buttonEdit = document.querySelector('.profile__button-edit');
 let popup = document.querySelector('.popup');
 let popupCloseButton = document.querySelector('.popup__close-button');
 // Находим форму в DOM

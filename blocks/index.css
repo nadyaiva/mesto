@@ -9,10 +9,10 @@
 @import url(./profile/__info/profile__info.css);
 @import url(./profile/__name/profile__name.css);
 @import url(./profile/__title/profile__title.css);
-@import url(./button/button.css);
-@import url(./button/__add/button__add.css);
-@import url(./button/__edit/button__edit.css);
-@import url(./button/__image/button__image.css);
+@import url(./profile/__button/profile__button.css);
+@import url(./profile/__button-image/profile__button-image.css);
+@import url(./profile/__button-edit/profile__button-edit.css);
+@import url(./profile//__button-add/profile__button-add.css);
 @import url(./elements/elements.css);
 @import url(./elements/__element/elements__element.css);
 @import url(./elements/__image/elements__image.css);
@@ -28,4 +28,4 @@
 @import url(./popup/__item/popup__item.css);
 @import url(./popup/__save-button/popup__save-button.css);
 @import url(./popup/__close-button/popup__close-button.css);
-@import url(./popup/_opened/popup_opened.css);
+@import url(./popup/_opened/popup_opened.css); ;
