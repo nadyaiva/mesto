@@ -91,9 +91,14 @@
   border-radius: 2px;
   width: 150px;
   height: 50px;
-
   font-size: 36px;
   margin-left: auto;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in;
+}
+
+.button__add:hover {
+  opacity: 0.6;
 }
 
 .button__edit {
@@ -101,6 +106,12 @@
   height: 24px;
   border: 1px solid #ffffff;
   box-sizing: border-box;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in;
+}
+
+.button__edit:hover {
+  opacity: 0.6;
 }
 
 .button__image {
@@ -126,6 +137,8 @@
 .photo__info {
   display: flex;
   justify-content: space-between;
+  margin: 23px 20px 26px 21px;
+  align-items: center;
 }
 .element__image {
   width: 100%;
@@ -138,10 +151,12 @@
   line-height: 29px;
   color: #000000;
   margin: 0;
-  margin: 25px 15px 31px 21px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .element__like-symbol {
-  margin-right: 20px;
+  height: 19px;
 }
 
 .footer__copyright {
@@ -160,7 +175,7 @@
   width: 100vw;
   height: 100vw;
   background: rgba(0, 0, 0, 0.5);
-  display: flex;
+  display: none;
 }
 
 .popup__heading {
@@ -233,6 +248,7 @@
   border-style: none;
   padding: 0;
   margin: 0;
+  cursor: pointer;
   transition: opacity 0.2s ease-in;
 }
 .popup__close-button image {
@@ -241,7 +257,7 @@
 }
 
 .popup__close-button:hover {
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 input::-webkit-input-placeholder {
@@ -325,6 +341,7 @@ input::placeholder {
 
   .elements {
     max-width: calc(100vw - 38px);
+    margin-top: 36px;
     margin-bottom: 48px;
   }
   .header {
@@ -345,7 +362,8 @@ input::placeholder {
     width: 282px;
   }
   .profile__info {
-    margin: 26px auto 0;
+    margin-left: 0;
+    margin-top: 26px;
     gap: 14px 10px;
   }
 
