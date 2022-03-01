@@ -1,17 +1,17 @@
-# Проект: Место
+# Mesto - is a website for sharing photos.
 
-### Обзор
+The page is made with CSS using BEM methodology (architecture and class naming).
 
-* Figma
-* Картинки
+**The functionality created with Javascript**
 
-**Figma**
+- Opening and closing popups
+- editing user info
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+**Plans for improvment**
 
-**Картинки**
+- add vendor prefixes
+- develop new functionality with java script
 
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
+Check out result [here](https://nadyaiva.github.io/mesto/)
 
-Удачи!
+The project is developed during Yandex Practicum education course.

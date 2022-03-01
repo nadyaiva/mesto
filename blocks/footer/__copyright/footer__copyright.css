@@ -9,11 +9,8 @@
 }
 @media screen and (max-width: 900px) {
   .footer__copyright {
-    font-style: normal;
-    font-weight: normal;
     font-size: 14px;
     line-height: 17px;
-    color: #545454;
     margin-bottom: 36px;
   }
 }

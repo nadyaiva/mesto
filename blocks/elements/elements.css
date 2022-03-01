@@ -1,13 +1,16 @@
 .elements {
+}
+.elements ul {
+  list-style: none;
+  padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
   margin-top: 51px;
   margin-bottom: 66px;
   gap: 20px 17px;
   justify-items: center;
-  list-style: none;
-  padding: 0;
 }
+
 @media screen and (max-width: 900px) {
   .elements {
     max-width: calc(100vw - 38px);

@@ -12,7 +12,7 @@
   margin-top: 30px;
 }
 
-input::-webkit-input-placeholder {
+.popup__item::-webkit-input-placeholder {
   color: #000000;
   font-style: normal;
   font-weight: normal;
@@ -20,7 +20,7 @@ input::-webkit-input-placeholder {
   line-height: 17px;
   padding-bottom: 13px;
 }
-input::-moz-placeholder {
+.popup__item::-moz-placeholder {
   color: #000000;
   font-style: normal;
   font-weight: normal;
@@ -28,7 +28,7 @@ input::-moz-placeholder {
   line-height: 17px;
   padding-bottom: 13px;
 }
-input::-ms-input-placeholder {
+.popup__item::-ms-input-placeholder {
   color: #000000;
   font-style: normal;
   font-weight: normal;
@@ -36,7 +36,7 @@ input::-ms-input-placeholder {
   line-height: 17px;
   padding-bottom: 13px;
 }
-input::placeholder {
+.popup__item::placeholder {
   color: #000000;
   font-style: normal;
   font-weight: normal;
