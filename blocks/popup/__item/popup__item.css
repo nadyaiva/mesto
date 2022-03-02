@@ -4,7 +4,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 0;
 }
-.popup__item[type="text"] {
+.popup__item {
   padding-bottom: 8px;
 }
 
@@ -12,30 +12,9 @@
   margin-top: 30px;
 }
 
-.popup__item::-webkit-input-placeholder {
-  color: #000000;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  padding-bottom: 13px;
-}
-.popup__item::-moz-placeholder {
-  color: #000000;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  padding-bottom: 13px;
-}
-.popup__item::-ms-input-placeholder {
-  color: #000000;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  padding-bottom: 13px;
-}
+.popup__item::-webkit-input-placeholder,
+.popup__item::-moz-placeholder,
+.popup__item::-ms-input-placeholder,
 .popup__item::placeholder {
   color: #000000;
   font-style: normal;

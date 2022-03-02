@@ -9,6 +9,7 @@
   background-repeat: no-repeat;
   border-style: none;
   padding: 0;
+  cursor: pointer;
 }
 
 .elements__button-like:hover {
