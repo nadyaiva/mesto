@@ -31,8 +31,9 @@
       ></button>
     </section>
     <section class="container">
-      <ul class="elements">
-        <li class="elements__element">
+      <ul class="elements element-container">
+        <!-- <li class="elements__element">
+          <button class="elements__button_trash" type="button"></button>
           <img
             class="elements__image"
             src="./images/elements__karachaevsk.jpg"
@@ -41,12 +42,13 @@
           <div class="elements__info">
             <p class="elements__caption">Карачаевск</p>
             <button
-              class="elements__button-like elements__button-like_active"
+              class="elements__button_like elements__button_like_active"
               type="button"
             ></button>
           </div>
         </li>
         <li class="elements__element">
+          <button class="elements__button_trash" type="button"></button>
           <img
             class="elements__image"
             src="./images/elements__elbrus.jpg"
@@ -54,10 +56,11 @@
           />
           <div class="elements__info">
             <p class="elements__caption">Гора Эльбрус</p>
-            <button class="elements__button-like" type="button"></button>
+            <button class="elements__button_like" type="button"></button>
           </div>
         </li>
         <li class="elements__element">
+          <button class="elements__button_trash" type="button"></button>
           <img
             class="elements__image"
             src="./images/elements__dombai.jpg"
@@ -65,10 +68,11 @@
           />
           <div class="elements__info">
             <p class="elements__caption">Домбай</p>
-            <button class="elements__button-like" type="button"></button>
+            <button class="elements__button_like" type="button"></button>
           </div>
         </li>
         <li class="elements__element">
+          <button class="elements__button_trash" type="button"></button>
           <img
             class="elements__image"
             src="./images/elements__dombai.jpg"
@@ -76,10 +80,11 @@
           />
           <div class="elements__info">
             <p class="elements__caption">Домбай</p>
-            <button class="elements__button-like" type="button"></button>
+            <button class="elements__button_like" type="button"></button>
           </div>
         </li>
         <li class="elements__element">
+          <button class="elements__button_trash" type="button"></button>
           <img
             class="elements__image"
             src="./images/elements__karachaevsk.jpg"
@@ -87,10 +92,11 @@
           />
           <div class="elements__info">
             <p class="elements__caption">Карачаево-Черкесия</p>
-            <button class="elements__button-like" type="button"></button>
+            <button class="elements__button_like" type="button"></button>
           </div>
         </li>
         <li class="elements__element">
+          <button class="elements__button_trash" type="button"></button>
           <img
             class="elements__image"
             src="./images/elements__elbrus.jpg"
@@ -98,16 +104,19 @@
           />
           <div class="elements__info">
             <p class="elements__caption">Гора Эльбрус</p>
-            <button class="elements__button-like" type="button"></button>
+            <button class="elements__button_like" type="button"></button>
           </div>
-        </li>
+        </li> -->
       </ul>
     </section>
     <footer class="container footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <section class="popup">
-      <form class="popup__container" name="popup-profile">
+    <section class="popup popup_place_profile">
+      <form
+        class="popup__container popup__container_place_profile"
+        name="popup-profile"
+      >
         <h2 class="popup__heading">Редактировать профиль</h2>
         <fieldset class="popup__input-container">
           <input
@@ -118,17 +127,74 @@
             name="fullname"
           />
           <input
-            class="popup__item popup__item_type_title"
+            class="popup__item popup__item_type_job"
             placeholder="Вид деятельности"
             value="Исследователь океана"
             type="text"
             name="jobtitle"
           />
-          <button class="popup__save-button" type="submit">Сохранить</button>
+          <button
+            class="popup__save-button popup__save-button_place_profile"
+            type="submit"
+          >
+            Сохранить
+          </button>
         </fieldset>
-        <button class="popup__close-button" type="button"></button>
+        <button
+          class="popup__close-button popup__close-button_place_profile"
+          type="button"
+        ></button>
       </form>
     </section>
+
+    <!-- NEW PLACE POPUP -->
+    <section class="popup popup_place_photo">
+      <form
+        class="popup__container popup__container_place_photo"
+        name="popup-add-photo"
+      >
+        <h2 class="popup__heading">Новое место</h2>
+        <fieldset class="popup__input-container">
+          <input
+            class="popup__item popup__item_type_title"
+            value=""
+            placeholder="Название"
+            type="text"
+            name="post-title"
+          />
+          <input
+            class="popup__item popup__item_type_pic-link"
+            placeholder="Ссылка на картинку"
+            value=""
+            type="text"
+            name="pic-link"
+          />
+          <button
+            class="popup__save-button popup__item_type_pic-link"
+            type="submit"
+          >
+            Создать
+          </button>
+        </fieldset>
+        <button
+          class="popup__close-button popup__close-button_place_photo"
+          type="button"
+        ></button>
+      </form>
+    </section>
+    <template id="element-template">
+      <li class="elements__element">
+        <button class="elements__button_trash" type="button"></button>
+        <img class="elements__image" src="" alt="" />
+        <div class="elements__info">
+          <p class="elements__caption"></p>
+          <button
+            class="elements__button_like elements__button_like_active"
+            type="button"
+          ></button>
+        </div>
+      </li>
+    </template>
     <script src="./scripts/script.js"></script>
   </body>
 </html>
