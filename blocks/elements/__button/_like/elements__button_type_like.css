@@ -12,6 +12,19 @@
   cursor: pointer;
 }
 
+.elements__button_like_active {
+  height: 24px;
+  width: 24px;
+  opacity: 1;
+  background-image: url(../../../../images/like_active.svg);
+  background-size: 19px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-style: none;
+  padding: 0;
+  cursor: pointer;
+}
+
 .elements__button_like:hover {
   opacity: 0.6;
 }

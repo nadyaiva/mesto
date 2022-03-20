@@ -112,9 +112,9 @@
     <footer class="container footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <section class="popup popup_place_profile">
+    <section class="popup popup-form popup-form_edit-profile">
       <form
-        class="popup__container popup__container_place_profile"
+        class="popup__container popup__container_edit-profile"
         name="popup-profile"
       >
         <h2 class="popup__heading">Редактировать профиль</h2>
@@ -148,9 +148,9 @@
     </section>
 
     <!-- NEW PLACE POPUP -->
-    <section class="popup popup_place_photo">
+    <section class="popup popup-form popup-form_add-photo">
       <form
-        class="popup__container popup__container_place_photo"
+        class="popup__container popup__container_form_add-photo"
         name="popup-add-photo"
       >
         <h2 class="popup__heading">Новое место</h2>
@@ -177,10 +177,24 @@
           </button>
         </fieldset>
         <button
-          class="popup__close-button popup__close-button_place_photo"
+          class="popup__close-button popup__close-button_place_form-photo"
           type="button"
         ></button>
       </form>
+    </section>
+    <section class="popup popup__fullscreen">
+      <figure class="popup__fullscreen-figure">
+        <img
+          class="popup__fullscreen-image"
+          src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
+          alt=""
+        />
+        <figcaption class="popup__fullscreen-caption">Архыз</figcaption>
+        <button
+          class="popup__close-button popup__close-button_place_fullscreen"
+          type="button"
+        ></button>
+      </figure>
     </section>
     <template id="element-template">
       <li class="elements__element">
@@ -188,10 +202,7 @@
         <img class="elements__image" src="" alt="" />
         <div class="elements__info">
           <p class="elements__caption"></p>
-          <button
-            class="elements__button_like elements__button_like_active"
-            type="button"
-          ></button>
+          <button class="elements__button_like" type="button"></button>
         </div>
       </li>
     </template>

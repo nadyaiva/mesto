@@ -4,13 +4,14 @@ The page is made with CSS using BEM methodology (architecture and class naming).
 
 **The functionality created with JavaScript**
 
-- Opening and closing popups
-- editing user info
+- open and close popups
+- edit user info
+- add cards from html tamplate
 
 **Plans for improvment**
 
 - add vendor prefixes
-- develop new functionality with JavaScript
+- develop new functionality with JS
 
 Check out result [here](https://nadyaiva.github.io/mesto/)
 
