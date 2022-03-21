@@ -44,15 +44,15 @@ const popupAdd = document.querySelector('.popup-form_add-photo');
 const formAdd = popupAdd.querySelector('.popup__container_form_add-photo');
 
 let titleInput = popupAdd.querySelector('.popup__item_type_title');
-let linkInput = popupAdd.querySelector('.popup__item_type_pic-link');
+let linkInput = popupAdd.querySelector('.popup__save-button_place_add-photo');
 
 const elementContainer = document.querySelector('.element-container');
 const elementTemplate = document.querySelector('#element-template').content;
 
 // FULLSCREEN POPUP
-const popupFullscreen = document.querySelector('.popup__fullscreen');
-const fullscreenImage = document.querySelector('.popup__fullscreen-image');
-const fullscreenCaption = document.querySelector('.popup__fullscreen-caption');
+const popupFullscreen = document.querySelector('.popup-fullscreen');
+const fullscreenImage = document.querySelector('.popup-fullscreen__image');
+const fullscreenCaption = document.querySelector('.popup-fullscreen__caption');
 
 
 function formSubmitHandlerEditProfile (evt) {
