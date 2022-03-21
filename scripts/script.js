@@ -105,6 +105,7 @@ function formCardHendler(elements__element, elements__caption, elements__image, 
       const mainElement = event.target.closest('.elements__element');
       fullscreenImage.src = mainElement.querySelector(elements__image).src;
       fullscreenCaption.textContent = mainElement.querySelector(elements__caption).textContent;
+      fullscreenImage.alt = mainElement.querySelector(elements__image).alt;
       toggelPopupFullscreen()
     });
     const buttonTrash = placeElement.querySelector(elements__button_trash);
@@ -138,7 +139,3 @@ function toggelPopupEdit() {
 function toggelPopupAdd() {
   popupAdd.classList.toggle('popup_opened');
 }
-
-// function toggelPopup(popup) {
-//   popup.classList.toggle('popup_opened');
-// }
