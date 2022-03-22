@@ -2,11 +2,12 @@
   list-style: none;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  grid-template-columns: repeat(auto-fit, 282px);
   margin-top: 51px;
   margin-bottom: 66px;
   gap: 20px 17px;
   justify-items: center;
+  justify-content: center;
 }
 
 @media screen and (max-width: 900px) {

@@ -31,88 +31,12 @@
       ></button>
     </section>
     <section class="container">
-      <ul class="elements element-container">
-        <!-- <li class="elements__element">
-          <button class="elements__button_trash" type="button"></button>
-          <img
-            class="elements__image"
-            src="./images/elements__karachaevsk.jpg"
-            alt="Карачаевск"
-          />
-          <div class="elements__info">
-            <p class="elements__caption">Карачаевск</p>
-            <button
-              class="elements__button_like elements__button_like_active"
-              type="button"
-            ></button>
-          </div>
-        </li>
-        <li class="elements__element">
-          <button class="elements__button_trash" type="button"></button>
-          <img
-            class="elements__image"
-            src="./images/elements__elbrus.jpg"
-            alt="Карачаевск"
-          />
-          <div class="elements__info">
-            <p class="elements__caption">Гора Эльбрус</p>
-            <button class="elements__button_like" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__element">
-          <button class="elements__button_trash" type="button"></button>
-          <img
-            class="elements__image"
-            src="./images/elements__dombai.jpg"
-            alt="Карачаевск"
-          />
-          <div class="elements__info">
-            <p class="elements__caption">Домбай</p>
-            <button class="elements__button_like" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__element">
-          <button class="elements__button_trash" type="button"></button>
-          <img
-            class="elements__image"
-            src="./images/elements__dombai.jpg"
-            alt="Карачаевск"
-          />
-          <div class="elements__info">
-            <p class="elements__caption">Домбай</p>
-            <button class="elements__button_like" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__element">
-          <button class="elements__button_trash" type="button"></button>
-          <img
-            class="elements__image"
-            src="./images/elements__karachaevsk.jpg"
-            alt="Карачаевск"
-          />
-          <div class="elements__info">
-            <p class="elements__caption">Карачаево-Черкесия</p>
-            <button class="elements__button_like" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__element">
-          <button class="elements__button_trash" type="button"></button>
-          <img
-            class="elements__image"
-            src="./images/elements__elbrus.jpg"
-            alt="Карачаевск"
-          />
-          <div class="elements__info">
-            <p class="elements__caption">Гора Эльбрус</p>
-            <button class="elements__button_like" type="button"></button>
-          </div>
-        </li> -->
-      </ul>
+      <ul class="elements"></ul>
     </section>
     <footer class="container footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <section class="popup popup-form popup-form_edit-profile">
+    <div class="popup popup-form popup-form_edit-profile">
       <form
         class="popup__container popup__container_edit-profile"
         name="popup-profile"
@@ -145,10 +69,10 @@
           type="button"
         ></button>
       </form>
-    </section>
+    </div>
 
     <!-- NEW PLACE POPUP -->
-    <section class="popup popup-form popup-form_add-photo">
+    <div class="popup popup-form popup-form_add-photo">
       <form
         class="popup__container popup__container_form_add-photo"
         name="popup-add-photo"
@@ -181,8 +105,8 @@
           type="button"
         ></button>
       </form>
-    </section>
-    <section class="popup popup-fullscreen">
+    </div>
+    <div class="popup popup-fullscreen">
       <figure class="popup-fullscreen__figure">
         <img
           class="popup-fullscreen__image"
@@ -195,7 +119,7 @@
           type="button"
         ></button>
       </figure>
-    </section>
+    </div>
     <template id="element-template">
       <li class="elements__element">
         <button class="elements__button_trash" type="button"></button>
@@ -210,6 +134,7 @@
         </div>
       </li>
     </template>
+    <script src="./scripts/cards.js"></script>
     <script src="./scripts/script.js"></script>
   </body>
 </html>
