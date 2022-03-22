@@ -46,7 +46,7 @@ function renderCard(newCard) {
 }
 
 function addNewPlaceDefolt(titleValue = "", linkValue = "") {
-  placeElement = hendelFormCard(
+  placeElement = handleFormCard(
     titleValue,
     linkValue
   );
@@ -64,7 +64,7 @@ function addNewPlaceFromUser(evt) {
   const titleInputValue = titleInput.value;
   const linkInputValue = linkInput.value;
   if (titleInputValue && linkInputValue) {
-    placeElement = hendelFormCard(
+    placeElement = handleFormCard(
       titleInputValue,
       linkInputValue
     );
@@ -75,7 +75,7 @@ function addNewPlaceFromUser(evt) {
   linkInput.value = '';
 }
 
-function hendelFormCard(
+function handleFormCard(
   titleValue,
   linkValue
 ) {
