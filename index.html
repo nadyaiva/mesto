@@ -36,27 +36,38 @@
     <footer class="container footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup popup-form popup-form_edit-profile">
-      <form
-        class="popup__container popup__container_edit-profile"
-        name="popup-profile"
-      >
+    <!-- EDIT INFO POPUP -->
+    <div class="popup popup__container popup__container_edit-profile">
+      <form novalidate class="form form_edit-profile" name="form-profile">
         <h2 class="popup__heading">Редактировать профиль</h2>
         <fieldset class="popup__input-container">
-          <input
-            class="popup__item popup__item_type_name"
-            value="Жак-Ив Кусто"
-            placeholder="Имя"
-            type="text"
-            name="fullname"
-          />
-          <input
-            class="popup__item popup__item_type_job"
-            placeholder="Вид деятельности"
-            value="Исследователь океана"
-            type="text"
-            name="jobtitle"
-          />
+          <label class="popup__label">
+            <input
+              class="popup__input popup__input_type_name"
+              value="Жак-Ив Кусто"
+              placeholder="Имя"
+              type="text"
+              name="fullname"
+              id="name-input"
+              minlength="2"
+              maxlength="40"
+              required
+            />
+            <span class="popup__input-error name-input-error"></span>
+          </label>
+          <label class="popup__label">
+            <input
+              class="popup__input popup__input_type_job"
+              placeholder="Вид деятельности"
+              value="Исследователь океана"
+              type="text"
+              name="jobtitle"
+              id="job-input"
+              minlength="2"
+              maxlength="200"
+              required />
+            <span class="popup__input-error job-input-error"></span
+          ></label>
           <button
             class="popup__save-button popup__save-button_place_profile"
             type="submit"
@@ -72,27 +83,38 @@
     </div>
 
     <!-- NEW PLACE POPUP -->
-    <div class="popup popup-form popup-form_add-photo">
-      <form
-        class="popup__container popup__container_form_add-photo"
-        name="popup-add-photo"
-      >
+    <div class="popup popup__container popup__container_add-photo">
+      <!-- FORM ADD NEW PLACE -->
+      <form novalidate class="form form_add-photo" name="popup-add-photo">
         <h2 class="popup__heading">Новое место</h2>
         <fieldset class="popup__input-container">
-          <input
-            class="popup__item popup__item_type_title"
-            value=""
-            placeholder="Название"
-            type="text"
-            name="post-title"
-          />
-          <input
-            class="popup__item popup__item_type_pic-link"
-            placeholder="Ссылка на картинку"
-            value=""
-            type="text"
-            name="pic-link"
-          />
+          <label class="popup__label">
+            <input
+              class="popup__input popup__input_type_title"
+              value=""
+              placeholder="Название"
+              type="text"
+              name="post-title"
+              id="title-input"
+              minlength="2"
+              maxlength="30"
+              required />
+            <span class="popup__input-error title-input-error"></span
+          ></label>
+          <label class="popup__label">
+            <input
+              class="popup__input popup__input_type_pic-link"
+              placeholder="Ссылка на картинку"
+              value=""
+              type="url"
+              name="pic-link"
+              id="link-input"
+              required
+            />
+            <span class="popup__input-error link-input-error"
+              >Введите адрес сайта.</span
+            ></label
+          >
           <button
             class="popup__save-button popup__save-button_place_add-photo"
             type="submit"
@@ -134,6 +156,7 @@
         </div>
       </li>
     </template>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/cards.js"></script>
     <script src="./scripts/script.js"></script>
   </body>

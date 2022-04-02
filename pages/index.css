@@ -19,10 +19,10 @@
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/popup/popup.css);
-@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/form/form.css);
 @import url(../blocks/popup/__heading/popup__heading.css);
 @import url(../blocks/popup/__input-container/popup__input-container.css);
-@import url(../blocks/popup/__item/popup__item.css);
+@import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__save-button/popup__save-button.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup-fullscreen/__caption/popup-fullscreen__caption.css);

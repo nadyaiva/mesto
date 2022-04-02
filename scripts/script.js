@@ -1,5 +1,5 @@
-const popupEdit = document.querySelector(".popup-form_edit-profile");
-const formEdit = popupEdit.querySelector(".popup__container_edit-profile");
+const popupEdit = document.querySelector(".popup__container_edit-profile");
+const formEdit = popupEdit.querySelector(".form_edit-profile");
 const buttonAddPhoto = document.querySelector(".profile__button_type_add");
 const buttonEditProfile = document.querySelector(".profile__button_type_edit");
 
@@ -14,16 +14,16 @@ const popupCloseButtonFullscreen = document.querySelector(
   ".popup__close-button_place_fullscreen"
 );
 
-const nameInput = popupEdit.querySelector(".popup__item_type_name");
-const jobInput = popupEdit.querySelector(".popup__item_type_job");
+const nameInput = popupEdit.querySelector(".popup__input_type_name");
+const jobInput = popupEdit.querySelector(".popup__input_type_job");
 const profileName = document.querySelector(".profile__name");
 const profileTitle = document.querySelector(".profile__title");
 
-const popupAdd = document.querySelector(".popup-form_add-photo");
-const formAdd = popupAdd.querySelector(".popup__container_form_add-photo");
+const popupAdd = document.querySelector(".popup__container_add-photo");
+const formAdd = popupAdd.querySelector(".form_add-photo");
 
-const titleInput = popupAdd.querySelector(".popup__item_type_title");
-const linkInput = popupAdd.querySelector(".popup__item_type_pic-link");
+const titleInput = popupAdd.querySelector(".popup__input_type_title");
+const linkInput = popupAdd.querySelector(".popup__input_type_pic-link");
 
 const elementsContainer = document.querySelector(".elements");
 const elementTemplate = document.querySelector("#element-template").content;

@@ -25,3 +25,22 @@
     margin-bottom: 25px;
   }
 }
+
+.popup__save-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.popup__save-button:disabled {
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
+  opacity: 0.2;
+  cursor: default;
+}
+
+.popup__save-button_disabled {
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
+  opacity: 0.2;
+}
