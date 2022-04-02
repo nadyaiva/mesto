@@ -131,7 +131,27 @@ popupCloseButtonFullscreen.addEventListener("click", () => {
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener('keydown', handleEscUp);
+  document.addEventListener('click', handleOverlay);
 }
+
+
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener('keydown', handleEscUp);
+  document.removeEventListener('click', handleOverlay);
+}
+
+const handleEscUp = (evt) => {
+  const activePopup = document.querySelector('.popup_opened');
+  if (evt.which === 27) {
+    closePopup(activePopup);
+  };
+};
+
+const handleOverlay = (evt) => {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+    const activePopup = document.querySelector('.popup_opened');
+    closePopup(activePopup);
+  }
 }
