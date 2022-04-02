@@ -7,9 +7,6 @@ const buttonEditProfile = document.querySelector(".profile__button_type_edit");
 const popupCloseButtonAddPhoto = document.querySelector(
   ".popup__close-button_place_form-photo"
 );
-const popupCloseButtonEditProfile = document.querySelector(
-  ".popup__close-button_place_profile"
-);
 const popupCloseButtonFullscreen = document.querySelector(
   ".popup__close-button_place_fullscreen"
 );
@@ -112,10 +109,6 @@ buttonEditProfile.addEventListener("click", () => {
   openPopup(popupEdit);
 });
 
-popupCloseButtonEditProfile.addEventListener("click", () => {
-  closePopup(popupEdit);
-});
-
 formAdd.addEventListener("submit", addNewPlaceFromUser);
 
 buttonAddPhoto.addEventListener("click", () => {
@@ -143,8 +136,9 @@ function closePopup(popup) {
 }
 
 const handleEscUp = (evt) => {
-  const activePopup = document.querySelector('.popup_opened');
-  if (evt.which === 27) {
+  const escape = 27
+  if (evt.which === escape) {
+    const activePopup = document.querySelector('.popup_opened');
     closePopup(activePopup);
   };
 };
