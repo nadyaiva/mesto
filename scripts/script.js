@@ -1,4 +1,4 @@
-const popupEdit = document.querySelector(".popup__container_edit-profile");
+const popupEdit = document.querySelector(".popup_place_edit-profile");
 const formEdit = popupEdit.querySelector(".form_edit-profile");
 const buttonAddPhoto = document.querySelector(".profile__button_type_add");
 const buttonEditProfile = document.querySelector(".profile__button_type_edit");
@@ -19,7 +19,7 @@ const jobInput = popupEdit.querySelector(".popup__input_type_job");
 const profileName = document.querySelector(".profile__name");
 const profileTitle = document.querySelector(".profile__title");
 
-const popupAdd = document.querySelector(".popup__container_add-photo");
+const popupAdd = document.querySelector(".popup_place_add-photo");
 const formAdd = popupAdd.querySelector(".form_add-photo");
 
 const titleInput = popupAdd.querySelector(".popup__input_type_title");
