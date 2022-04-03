@@ -3,14 +3,6 @@ const formEdit = popupEdit.querySelector(".form_edit-profile");
 const buttonAddPhoto = document.querySelector(".profile__button_type_add");
 const buttonEditProfile = document.querySelector(".profile__button_type_edit");
 
-// POPUP BUTTON CLOSE
-const popupCloseButtonAddPhoto = document.querySelector(
-  ".popup__close-button_place_form-photo"
-);
-const popupCloseButtonFullscreen = document.querySelector(
-  ".popup__close-button_place_fullscreen"
-);
-
 const nameInput = popupEdit.querySelector(".popup__input_type_name");
 const jobInput = popupEdit.querySelector(".popup__input_type_job");
 const profileName = document.querySelector(".profile__name");
@@ -104,6 +96,7 @@ function handleFormCard(
 
 showPlaces(initialCards);
 
+
 formEdit.addEventListener("submit", handleSubmitProfile);
 buttonEditProfile.addEventListener("click", () => {
   openPopup(popupEdit);
@@ -114,30 +107,10 @@ formAdd.addEventListener("submit", addNewPlaceFromUser);
 buttonAddPhoto.addEventListener("click", () => {
   openPopup(popupAdd);
 });
-popupCloseButtonAddPhoto.addEventListener("click", () => {
-  closePopup(popupAdd);
-});
 
-popupCloseButtonFullscreen.addEventListener("click", () => {
-  closePopup(popupFullscreen);
-});
-
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener('keydown', handleEscUp);
-  document.addEventListener('click', handleOverlay);
-}
-
-
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener('keydown', handleEscUp);
-  document.removeEventListener('click', handleOverlay);
-}
-
-const handleEscUp = (evt) => {
+const handlePopup = (evt) => {
   const escape = 27
-  if (evt.which === escape) {
+  if (evt.which === escape || evt.target.classList.contains('popup__close-button')) {
     const activePopup = document.querySelector('.popup_opened');
     closePopup(activePopup);
   };
@@ -147,5 +120,19 @@ const handleOverlay = (evt) => {
   if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
     const activePopup = document.querySelector('.popup_opened');
     closePopup(activePopup);
-  }
-}
+  };
+};
+
+function openPopup(popup) {
+  popup.classList.add("popup_opened");
+  document.addEventListener('keydown', handlePopup);
+  document.addEventListener('click', handlePopup);
+  document.addEventListener('click', handleOverlay);
+};
+
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
+  document.removeEventListener('keydown', handlePopup);
+  document.removeEventListener('click', handlePopup);
+  document.removeEventListener('click', handleOverlay);
+};
