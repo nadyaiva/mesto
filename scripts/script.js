@@ -102,7 +102,10 @@ buttonEditProfile.addEventListener("click", () => {
   openPopup(popupEdit);
 });
 
-formAdd.addEventListener("submit", addNewPlaceFromUser);
+formAdd.addEventListener("submit", (evt) => {
+  addNewPlaceFromUser(evt);
+  formAdd.querySelector('.popup__close').setAttribute("disabled", "disabled");
+});
 
 buttonAddPhoto.addEventListener("click", () => {
   openPopup(popupAdd);
