@@ -111,9 +111,9 @@ buttonAddPhoto.addEventListener("click", () => {
   openPopup(popupAdd);
 });
 
-const handlePopup = (evt) => {
+const handleEsc = (evt) => {
   const escape = 27
-  if (evt.which === escape || evt.target.classList.contains('popup__close-button')) {
+  if (evt.which === escape) {
     const activePopup = document.querySelector('.popup_opened');
     closePopup(activePopup);
   };
@@ -128,14 +128,12 @@ const handleOverlay = (evt) => {
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  document.addEventListener('keydown', handlePopup);
-  document.addEventListener('click', handlePopup);
+  document.addEventListener('keydown', handleEsc);
   document.addEventListener('click', handleOverlay);
 };
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener('keydown', handlePopup);
-  document.removeEventListener('click', handlePopup);
+  document.removeEventListener('keydown', handleEsc);
   document.removeEventListener('click', handleOverlay);
 };
