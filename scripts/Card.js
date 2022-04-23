@@ -1,9 +1,9 @@
 export class Card {
-    constructor(data, cardSelector) {
+  constructor(data, cardSelector) {
     this._cardSelector = cardSelector;
     this._image = data.link;
     this._caption = data.name;
-    this._openPopupFunction = data.openPopup; 
+    this._openPopupFunction = data.openPopup;
     this._closePopupFunction = data.closePopup;
     this._buttonClose = data.buttonClose;
   }
@@ -42,8 +42,12 @@ export class Card {
 
   _handleFullscreen() {
     const popupFullscreen = document.querySelector(".popup-fullscreen");
-    const fullscreenImage = popupFullscreen.querySelector(".popup-fullscreen__image");
-    const fullscreenCaption = popupFullscreen.querySelector(".popup-fullscreen__caption");
+    const fullscreenImage = popupFullscreen.querySelector(
+      ".popup-fullscreen__image"
+    );
+    const fullscreenCaption = popupFullscreen.querySelector(
+      ".popup-fullscreen__caption"
+    );
     fullscreenImage.src = this._image;
     fullscreenCaption.textContent = this._caption;
     fullscreenImage.alt = this._caption;
@@ -63,9 +67,10 @@ export class Card {
         this._handleDeleteClick();
       });
 
-    this._element.querySelector('.elements__image').addEventListener("click", () => {
+    this._element
+      .querySelector(".elements__image")
+      .addEventListener("click", () => {
         this._handleFullscreen();
-    });
-
-}
+      });
+  }
 }
