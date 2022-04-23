@@ -145,12 +145,16 @@
         />
         <figcaption class="popup-fullscreen__caption">Архыз</figcaption>
         <button
-          class="popup__close-button popup__close-button_place_fullscreen"
+          class="
+            popup__close
+            popup__close-button
+            popup__close-button_place_fullscreen
+          "
           type="button"
         ></button>
       </figure>
     </div>
-    <template id="element-template">
+    <template id="element-template" class="element-template_default">
       <li class="elements__element">
         <button class="elements__button_trash" type="button"></button>
         <img
@@ -164,8 +168,9 @@
         </div>
       </li>
     </template>
-    <script src="./scripts/validate.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
+    <!-- <script src="./scripts/validate.js"></script>
     <script src="./scripts/cards.js"></script>
-    <script src="./scripts/script.js"></script>
+    <script src="./scripts/script.js"></script> -->
   </body>
 </html>
