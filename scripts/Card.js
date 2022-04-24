@@ -4,8 +4,6 @@ export class Card {
     this._image = data.link;
     this._caption = data.name;
     this._openPopupFunction = data.openPopup;
-    this._closePopupFunction = data.closePopup;
-    this._buttonClose = data.buttonClose;
   }
 
   _getTemplate() {
@@ -19,8 +17,10 @@ export class Card {
   generateCard() {
     this._element = this._getTemplate();
     this._element.querySelector(".elements__image").src = this._image;
+    this._element.querySelector(".elements__image").alt = this._caption;
     this._element.querySelector(".elements__caption").textContent =
       this._caption;
+
     this._setEventListeners();
 
     // Вернём элемент наружу
@@ -28,10 +28,7 @@ export class Card {
   }
 
   _handleDeleteClick() {
-    this._element
-      .querySelector(".elements__button_trash")
-      .closest(".elements__element")
-      .remove();
+    this._element.remove();
   }
 
   _handleLikeClick() {

@@ -6,4 +6,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  transition: scale 0.4s;
+  cursor: pointer;
+}
+
+.elements__element:hover {
+  transform: scale(1.01);
 }

@@ -1,32 +1,6 @@
 import { Card } from "./Card.js";
+import { initialCards } from "./cards.js";
 import { FormValidator } from "./FormValidator.js";
-
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
 
 const popupEdit = document.querySelector(".popup_place_edit-profile");
 const formEdit = popupEdit.querySelector(".form_edit-profile");
@@ -45,49 +19,37 @@ const titleInput = popupAdd.querySelector(".popup__input_type_title");
 const linkInput = popupAdd.querySelector(".popup__input_type_pic-link");
 
 const elementsContainer = document.querySelector(".elements");
-const elementTemplate = document.querySelector("#element-template").content;
 
-// FULLSCREEN POPUP
-const popupFullscreen = document.querySelector(".popup-fullscreen");
-const fullscreenImage = document.querySelector(".popup-fullscreen__image");
-const fullscreenCaption = document.querySelector(".popup-fullscreen__caption");
+function createCard(cardItem) {
+  cardItem.openPopup = openPopup;
+  const card = new Card(cardItem, ".element-template_default");
+  return card;
+}
 
 function renderCard(newCard) {
   elementsContainer.prepend(newCard);
 }
 initialCards.forEach((item) => {
-  item.openPopup = openPopup;
-  // Создадим экземпляр карточки
-  const card = new Card(item, ".element-template_default");
-  // Создаём карточку и возвращаем наружу
+  const card = createCard(item);
   const cardElement = card.generateCard();
-
-  // Добавляем в DOM
-  //document.querySelector('.elements').prepend(cardElement);
   renderCard(cardElement);
 });
 
 function addNewPlaceFromUser(evt) {
   evt.preventDefault();
 
-  const titleInputValue = titleInput.value;
-  const linkInputValue = linkInput.value;
-
-  if (titleInputValue && linkInputValue) {
-    const cardInputData = {
-      name: titleInput.value,
-      link: linkInput.value,
-      openPopup: openPopup,
-    };
-    const card = new Card(cardInputData, ".element-template_default");
-    renderCard(card.generateCard());
-    closePopup(popupAdd);
-    titleInput.value = "";
-    linkInput.value = "";
-  }
+  const cardInputData = {
+    name: titleInput.value,
+    link: linkInput.value,
+  };
+  const card = createCard(cardInputData);
+  renderCard(card.generateCard());
+  closePopup(popupAdd);
+  formValidators[formAdd.name].resetValidation();
 }
 
 function handleSubmitProfile(evt) {
+  console.log('handleSubmitProfile');
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileTitle.textContent = jobInput.value;
@@ -96,12 +58,15 @@ function handleSubmitProfile(evt) {
 
 formEdit.addEventListener("submit", handleSubmitProfile);
 buttonEditProfile.addEventListener("click", () => {
+  console.log('buttonEditProfile');
+  formValidators[formEdit.name].resetValidation();
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileTitle.textContent; 
   openPopup(popupEdit);
 });
 
 formAdd.addEventListener("submit", (evt) => {
   addNewPlaceFromUser(evt);
-  formAdd.querySelector(".popup__close").setAttribute("disabled", "disabled");
 });
 
 buttonAddPhoto.addEventListener("click", () => {
@@ -112,7 +77,8 @@ const handleEsc = (evt) => {
   const escape = 27;
   if (evt.which === escape) {
     const activePopup = document.querySelector(".popup_opened");
-    closePopup(activePopup);
+    //closePopup(activePopup);
+    formValidators[formAdd.name].resetValidation();
   }
 };
 
@@ -123,34 +89,61 @@ const handleOverlay = (evt) => {
   ) {
     const activePopup = document.querySelector(".popup_opened");
     closePopup(activePopup);
+    // formValidators[formAdd.name].resetValidation();
   }
 };
 
 function openPopup(popup) {
+  console.log("openPopup" + popup)
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", handleEsc);
   document.addEventListener("click", handleOverlay);
+  let formAdd = popup.querySelector(".form_add-photo");
+  if (formAdd != null) {
+    formValidators[formAdd.name].resetValidation();
+    formValidators[formAdd.name].disableButton();
+  }
+  let formEdd = popup.querySelector(".form_edit-profile-photo");
+  if (formEdd != null) {
+    formValidators[formEdd.name].resetValidation();
+
+  }
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", handleEsc);
   document.removeEventListener("click", handleOverlay);
+  // formValidators[formEdit.name].resetValidation();
+  //let form = popup.querySelector(".form_add-photo");
+  let form = popup.querySelector(".form");
+  //formValidators[form.name].resetValidation();
+  form.reset();
 }
 
-function startValidate() {
-  const config = {
-    formSelector: ".form",
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__save-button",
-    inactiveButtonClass: "popup__save-button_disabled",
-    inputErrorClass: "popup__input_type_error",
-    errorClass: "popup__input-error_active",
-  };
-  const formList = Array.from(document.querySelectorAll(".form"));
+const config = {
+  formSelector: ".form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save-button",
+  inactiveButtonClass: "popup__save-button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__input-error_active",
+};
+
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
-    const formValidated = new FormValidator(config, formElement);
-    formValidated.enableValidation();
+    const validator = new FormValidator(config, formElement);
+    formValidators[formElement.name] = validator;
+    validator.enableValidation();
   });
-}
-startValidate();
+};
+
+enableValidation(config);
+
+// formValidators[formEdit.name].resetValidation();
+
+// // или
+// formValidators[formAdd.name].resetValidation();
