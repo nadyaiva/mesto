@@ -26,16 +26,18 @@ export class FormValidator {
   }
 
   _showInputError(formInput, errorMessage) {
-    this._formError.textContent = errorMessage;
-    this._formError.classList.add(this._errorClass);
+    const formError = this._formElement.querySelector(`.${formInput.id}-error`); 
+    formError.textContent = errorMessage;
+    formError.classList.add(this._errorClass);
     formInput.classList.add(this._inputErrorClass);
   }
 
   _hideInputError(formInput) {
-    if (this._formError != null) {
+    const formError = this._formElement.querySelector(`.${formInput.id}-error`); 
+    if (formError != null) {
       formInput.classList.remove(this._inputErrorClass);
-      this._formError.classList.remove(this._errorClass);
-      this._formError.textContent = "";
+      formError.classList.remove(this._errorClass);
+      formError.textContent = "";
     }
   }
 
