@@ -49,7 +49,6 @@ function addNewPlaceFromUser(evt) {
 }
 
 function handleSubmitProfile(evt) {
-  console.log('handleSubmitProfile');
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileTitle.textContent = jobInput.value;
@@ -58,10 +57,9 @@ function handleSubmitProfile(evt) {
 
 formEdit.addEventListener("submit", handleSubmitProfile);
 buttonEditProfile.addEventListener("click", () => {
-  console.log('buttonEditProfile');
   formValidators[formEdit.name].resetValidation();
   nameInput.value = profileName.textContent;
-  jobInput.value = profileTitle.textContent; 
+  jobInput.value = profileTitle.textContent;
   openPopup(popupEdit);
 });
 
@@ -70,6 +68,8 @@ formAdd.addEventListener("submit", (evt) => {
 });
 
 buttonAddPhoto.addEventListener("click", () => {
+  formValidators[formAdd.name].resetValidation();
+  formValidators[formAdd.name].disableButton();
   openPopup(popupAdd);
 });
 
@@ -77,8 +77,7 @@ const handleEsc = (evt) => {
   const escape = 27;
   if (evt.which === escape) {
     const activePopup = document.querySelector(".popup_opened");
-    //closePopup(activePopup);
-    formValidators[formAdd.name].resetValidation();
+    closePopup(activePopup);
   }
 };
 
@@ -89,36 +88,21 @@ const handleOverlay = (evt) => {
   ) {
     const activePopup = document.querySelector(".popup_opened");
     closePopup(activePopup);
-    // formValidators[formAdd.name].resetValidation();
   }
 };
 
 function openPopup(popup) {
-  console.log("openPopup" + popup)
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", handleEsc);
   document.addEventListener("click", handleOverlay);
   let formAdd = popup.querySelector(".form_add-photo");
-  if (formAdd != null) {
-    formValidators[formAdd.name].resetValidation();
-    formValidators[formAdd.name].disableButton();
-  }
-  let formEdd = popup.querySelector(".form_edit-profile-photo");
-  if (formEdd != null) {
-    formValidators[formEdd.name].resetValidation();
-
-  }
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", handleEsc);
   document.removeEventListener("click", handleOverlay);
-  // formValidators[formEdit.name].resetValidation();
-  //let form = popup.querySelector(".form_add-photo");
   let form = popup.querySelector(".form");
-  //formValidators[form.name].resetValidation();
-  form.reset();
 }
 
 const config = {
@@ -142,8 +126,3 @@ const enableValidation = (config) => {
 };
 
 enableValidation(config);
-
-// formValidators[formEdit.name].resetValidation();
-
-// // или
-// formValidators[formAdd.name].resetValidation();
