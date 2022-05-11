@@ -1,9 +1,8 @@
 export class Card {
-  constructor(data, cardSelector) {
+  constructor({ data, handleCardClick }, cardSelector) {
+    this._cardItem = data;
+    this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
-    this._image = data.link;
-    this._caption = data.name;
-    this._openPopupFunction = data.openPopup;
   }
 
   _getTemplate() {
@@ -16,14 +15,12 @@ export class Card {
 
   generateCard() {
     this._element = this._getTemplate();
-    this._element.querySelector(".elements__image").src = this._image;
-    this._element.querySelector(".elements__image").alt = this._caption;
+    this._element.querySelector(".elements__image").src = this._cardItem.link;
+    this._element.querySelector(".elements__image").alt = this._cardItem.name;
     this._element.querySelector(".elements__caption").textContent =
-      this._caption;
+      this._cardItem.name;
 
     this._setEventListeners();
-
-    // Вернём элемент наружу
     return this._element;
   }
 
@@ -38,17 +35,7 @@ export class Card {
   }
 
   _handleFullscreen() {
-    const popupFullscreen = document.querySelector(".popup-fullscreen");
-    const fullscreenImage = popupFullscreen.querySelector(
-      ".popup-fullscreen__image"
-    );
-    const fullscreenCaption = popupFullscreen.querySelector(
-      ".popup-fullscreen__caption"
-    );
-    fullscreenImage.src = this._image;
-    fullscreenCaption.textContent = this._caption;
-    fullscreenImage.alt = this._caption;
-    this._openPopupFunction(popupFullscreen);
+    this._handleCardClick(this._cardItem);
   }
 
   _setEventListeners() {
