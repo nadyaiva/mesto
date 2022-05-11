@@ -1,3 +1,6 @@
+const header__logo = new URL('../images/logo.svg', import.meta.url);
+const profile__avatar = new URL('../images/profile__avatar.jpg', import.meta.url);
+import '../pages/index.css';
 import { Card } from "../scripts/components/Card.js";
 import { initialCards } from "../scripts/cards.js";
 import FormValidator from "../scripts/components/FormValidator.js";

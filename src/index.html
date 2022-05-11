@@ -4,17 +4,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Mesto</title>
   </head>
   <body class="page">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="Логотип Mesto" />
+      <img
+        class="header__logo"
+        src="<%=require('../images/logo.svg')%>"
+        alt="Логотип Mesto"
+      />
     </header>
     <section class="container profile">
       <img
         class="profile__avatar"
-        src="./images/profile__avatar.jpg"
+        src="<%=require('../images/profile__avatar.jpg')%>"
         alt="Фото профиля"
       />
       <div class="profile__info">
@@ -136,11 +139,7 @@
     </div>
     <div class="popup popup-fullscreen">
       <figure class="popup-fullscreen__figure">
-        <img
-          class="popup-fullscreen__image"
-          src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
-          alt="Архыз"
-        />
+        <img class="popup-fullscreen__image" src="" alt="" />
         <figcaption class="popup-fullscreen__caption">Архыз</figcaption>
         <button
           class="
@@ -155,20 +154,12 @@
     <template id="element-template" class="element-template_default">
       <li class="elements__element">
         <button class="elements__button_trash" type="button"></button>
-        <img
-          class="elements__image"
-          src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
-          alt="Архыз"
-        />
+        <img class="elements__image" src="" alt="" />
         <div class="elements__info">
           <p class="elements__caption"></p>
           <button class="elements__button_like" type="button"></button>
         </div>
       </li>
     </template>
-    <script type="module" src="./pages/index.js"></script>
-    <!-- <script src="./scripts/validate.js"></script>
-    <script src="./scripts/cards.js"></script>
-    <script src="./scripts/script.js"></script> -->
   </body>
 </html>
