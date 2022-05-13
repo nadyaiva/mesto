@@ -12,9 +12,6 @@ export default class FormValidator {
     this._inputList = Array.from(
       this._formElement.querySelectorAll(this._inputSelector)
     );
-    this._formError = this._formElement.querySelector(
-      `.${this._formElement.querySelector(this._inputSelector).id}-error`
-    );
   }
 
   _checkInputValidity(formInput) {
@@ -26,14 +23,14 @@ export default class FormValidator {
   }
 
   _showInputError(formInput, errorMessage) {
-    const formError = this._formElement.querySelector(`.${formInput.id}-error`);
+    const formError = this._formElement.querySelector(`.${formInput.id}-error`); 
     formError.textContent = errorMessage;
     formError.classList.add(this._errorClass);
     formInput.classList.add(this._inputErrorClass);
   }
 
   _hideInputError(formInput) {
-    const formError = this._formElement.querySelector(`.${formInput.id}-error`);
+    const formError = this._formElement.querySelector(`.${formInput.id}-error`); 
     if (formError != null) {
       formInput.classList.remove(this._inputErrorClass);
       formError.classList.remove(this._errorClass);

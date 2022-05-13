@@ -10,66 +10,6 @@ import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 const buttonAddPhoto = document.querySelector(".profile__button_type_add");
 const buttonEditProfile = document.querySelector(".profile__button_type_edit");
-
-const handleFullscreenClick = (cardItem) => {
-  const popupWithImage = new PopupWithImage(".popup-fullscreen");
-  popupWithImage.open(cardItem);
-};
-
-const cardsList = new Section(
-  {
-    data: initialCards,
-    renderer: (cardItem) => {
-      const card = new Card(
-        { data: cardItem, handleCardClick: handleFullscreenClick },
-        ".element-template_default"
-      );
-      const cardElement = card.generateCard();
-      cardsList.addItem(cardElement);
-    },
-  },
-  ".elements"
-);
-
-cardsList.renderItems();
-
-const formAddPopup = new PopupWithForm(
-  ".popup_place_add-photo",
-  (cardInputData) => {
-    const card = new Card(
-      { data: cardInputData, handleCardClick: handleFullscreenClick },
-      ".element-template_default"
-    );
-    const cardElement = card.generateCard();
-    cardsList.addItem(cardElement);
-    formAddPopup.close();
-    formValidators[formAddPopup.getFormElement().name].resetValidation();
-  }
-);
-const userInfo = new UserInfo(".profile__name", ".profile__title");
-const formEditPopup = new PopupWithForm(
-  ".popup_place_edit-profile",
-  (userInputData) => {
-    userInfo.setUserInfo({
-      nameInput: userInputData.fullname,
-      jobInput: userInputData.jobtitle,
-    });
-    formEditPopup.close();
-  }
-);
-
-buttonEditProfile.addEventListener("click", () => {
-  formValidators[formEditPopup.getFormElement().name].resetValidation();
-  formEditPopup.setInputValues(userInfo.getUserInfo());
-  formEditPopup.open();
-});
-
-buttonAddPhoto.addEventListener("click", () => {
-  formValidators[formAddPopup.getFormElement().name].resetValidation();
-  formValidators[formAddPopup.getFormElement().name].disableButton();
-  formAddPopup.open();
-});
-
 const config = {
   formSelector: ".form",
   inputSelector: ".popup__input",
@@ -91,3 +31,62 @@ const enableValidation = (config) => {
 };
 
 enableValidation(config);
+
+const popupWithImage = new PopupWithImage(".popup-fullscreen");
+const handleFullscreenClick = (cardItem) => {
+  popupWithImage.open(cardItem);
+};
+
+
+function createCard(item) {
+  const card = new Card(
+       { data: item, handleCardClick: handleFullscreenClick },
+       ".element-template_default"
+     );
+     const cardElement = card.generateCard();
+     return cardElement
+}
+
+
+const cardsList = new Section(
+  {
+    data: initialCards,
+    renderer: (cardItem) => {
+      cardsList.addItem(createCard(cardItem));
+    },
+  },
+  ".elements"
+);
+
+cardsList.renderItems();
+
+const formAddPopup = new PopupWithForm(
+  ".popup_place_add-photo", formValidators["popup-add-photo"],
+  (cardInputData) => {
+    cardsList.addItem(createCard(cardInputData));
+    formAddPopup.close();
+  }
+);
+const userInfo = new UserInfo(".profile__name", ".profile__title");
+const formEditPopup = new PopupWithForm(
+  ".popup_place_edit-profile", formValidators["form-profile"],
+  (userInputData) => {
+    userInfo.setUserInfo({
+      nameInput: userInputData.fullname,
+      jobInput: userInputData.jobtitle,
+    });
+    formEditPopup.close();
+  }
+);
+
+buttonEditProfile.addEventListener("click", () => {
+  formValidators[formEditPopup.getFormElement().name].resetValidation();
+  formEditPopup.setInputValues(userInfo.getUserInfo());
+  formEditPopup.open();
+});
+
+buttonAddPhoto.addEventListener("click", () => {
+  formAddPopup.open();
+});
+
+
