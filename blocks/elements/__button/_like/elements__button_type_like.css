@@ -9,6 +9,7 @@
   background-repeat: no-repeat;
   border-style: none;
   padding: 0;
+  padding-bottom: 3px;
   cursor: pointer;
 }
 
@@ -22,9 +23,24 @@
   background-repeat: no-repeat;
   border-style: none;
   padding: 0;
+  padding-bottom: 3px;
   cursor: pointer;
 }
 
 .elements__button_like:hover {
   opacity: 0.6;
+}
+.elements__like-info {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 16px;
+text-align: center;
+
+color: #000000;
 }

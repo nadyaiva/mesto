@@ -3,7 +3,14 @@ export class Card {
     this._cardItem = data;
     this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
+    this._element = this._getTemplate();
+    this.countCardLikes();
   }
+
+  // displayCardLike(numberLikes) {
+  //   this._element.querySelector('.elements__info_like-count').textContent = numberLikes;
+  // }
+
 
   _getTemplate() {
     const cardElement = document
@@ -14,9 +21,8 @@ export class Card {
   }
 
   generateCard() {
-    this._element = this._getTemplate();
     this._element.querySelector(".elements__image").src = this._cardItem.link;
-    this._element.querySelector(".elements__image").alt = this._cardItem.cardname;
+    this._element.querySelector(".elements__image").alt = this._cardItem.name;
     this._element.querySelector(".elements__caption").textContent =
       this._cardItem.cardname;
 
@@ -56,5 +62,9 @@ export class Card {
       .addEventListener("click", () => {
         this._handleFullscreen();
       });
+  }
+  countCardLikes() {
+    this._element.querySelector('.elements__info_like-count').textContent = this._cardItem.likes.length;
+
   }
 }

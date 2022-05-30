@@ -34,3 +34,7 @@
   opacity: 0.2;
   cursor: default;
 }
+
+.popup__save-button_place_confirm {
+  margin-top: 38px;
+}

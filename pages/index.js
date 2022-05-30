@@ -1,6 +1,9 @@
-const header__logo = new URL('../images/logo.svg', import.meta.url);
-const profile__avatar = new URL('../images/profile__avatar.jpg', import.meta.url);
-import '../pages/index.css';
+const header__logo = new URL("../images/logo.svg", import.meta.url);
+const profile__avatar = new URL(
+  "../images/profile__avatar.jpg",
+  import.meta.url
+);
+import "../pages/index.css";
 import { Card } from "../scripts/components/Card.js";
 import { initialCards } from "../scripts/cards.js";
 import FormValidator from "../scripts/components/FormValidator.js";
@@ -8,8 +11,12 @@ import Section from "../scripts/components/Section.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import UserInfo from "../scripts/components/UserInfo.js";
+import Api from "../scripts/components/Api.js";
 const buttonAddPhoto = document.querySelector(".profile__button_type_add");
 const buttonEditProfile = document.querySelector(".profile__button_type_edit");
+const likeCountElement = document.querySelector('.elements__info_like-count')
+const profileName = document.querySelector(".profile__name");
+const profileTitle = document.querySelector(".profile__title");
 const config = {
   formSelector: ".form",
   inputSelector: ".popup__input",
@@ -37,44 +44,54 @@ const handleFullscreenClick = (cardItem) => {
   popupWithImage.open(cardItem);
 };
 
-
 function createCard(item) {
   const card = new Card(
-       { data: item, handleCardClick: handleFullscreenClick },
-       ".element-template_default"
-     );
-     const cardElement = card.generateCard();
-     return cardElement
+    { data: item, handleCardClick: handleFullscreenClick },
+    ".element-template_default"
+  );
+  const cardElement = card.generateCard();
+  return cardElement;
 }
 
-
-const cardsList = new Section(
-  {
-    data: initialCards,
-    renderer: (cardItem) => {
-      cardsList.addItem(createCard(cardItem));
-    },
-  },
-  ".elements"
-);
-
-cardsList.renderItems();
-
 const formAddPopup = new PopupWithForm(
-  ".popup_place_add-photo", formValidators["popup-add-photo"],
+  ".popup_place_add-photo",
+  formValidators["popup-add-photo"],
   (cardInputData) => {
     cardsList.addItem(createCard(cardInputData));
+    console.log(cardInputData);
+    api.addNewCard(cardInputData).then((res) => res.json())
+    .then((card) => pass)
+    .catch((err) => {
+      console.log(err);
+    });
     formAddPopup.close();
   }
 );
-const userInfo = new UserInfo(".profile__name", ".profile__title");
+
+const userInfo = new UserInfo(
+  ".profile__name",
+  ".profile__title",
+  ".profile__avatar"
+);
+
 const formEditPopup = new PopupWithForm(
-  ".popup_place_edit-profile", formValidators["form-profile"],
+  ".popup_place_edit-profile",
+  formValidators["form-profile"],
   (userInputData) => {
     userInfo.setUserInfo({
       nameInput: userInputData.fullname,
       jobInput: userInputData.jobtitle,
     });
+    const userInfoUpdate = api.updateUserInfo(
+      userInputData.fullname,
+      userInputData.jobtitle
+    );
+    userInfoUpdate
+      .then((res) => res.json())
+      .then((json) => console.log(json))
+      .catch((err) => {
+        console.log("Ошибка. Запрос не выполнен: ", err);
+      });
     formEditPopup.close();
   }
 );
@@ -86,7 +103,49 @@ buttonEditProfile.addEventListener("click", () => {
 });
 
 buttonAddPhoto.addEventListener("click", () => {
+  formValidators[formAddPopup.getFormElement().name].resetValidation();
   formAddPopup.open();
 });
 
+const api = new Api({
+  authorization: "d94e7cf1-3761-45b6-9798-0ad1da8f2858",
+});
 
+const userInfoApi = api.getUserInfoApi();
+userInfoApi
+  .then((data) => {
+    userInfo.setUserInfo({ nameInput: data.name, jobInput: data.about });
+    userInfo.setUserAvatar(data.avatar);
+  })
+
+  .catch((err) => {
+    console.log(err);
+  });
+
+const cardsList = new Section(
+  {
+    renderer: (cardItem) => {
+      cardsList.addItem(createCard(cardItem));
+    },
+  },
+  ".elements"
+);
+
+const cardsApi = api.getInitialCards();
+cardsApi
+  .then((cards) => {
+    const cardsArray = [];
+    cards.forEach((card) => {
+      const cardObj = { cardname: card.name, link: card.link, likes: card.likes };
+      cardsArray.push(cardObj);
+      // card.countCardLikes(card)
+    });
+    cardsList.renderItems(cardsArray);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+  // function countLikes(card) {
+  //   // card.displayCardLike(card.likes.length);
+  // }

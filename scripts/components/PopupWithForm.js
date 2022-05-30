@@ -7,6 +7,7 @@ export default class PopupWithForm extends Popup {
     this._inputName = this._popup.querySelector(".popup__input_type_name");
     this._inputJob = this._popup.querySelector(".popup__input_type_job");
     this._formValidator = formValidator;
+    this._formValidator.resetValidation();
   }
 
   _getInputValues() {
@@ -18,15 +19,13 @@ export default class PopupWithForm extends Popup {
   }
 
   setInputValues({ name, job }) {
-    this._inputName.value =
-      name.textContent;
-      this._inputJob.value = job.textContent;
+    this._inputName.value = name.textContent;
+    this._inputJob.value = job.textContent;
   }
 
   close() {
     super.close();
     this._formValidator.resetValidation();
-    
   }
 
   setEventListeners() {

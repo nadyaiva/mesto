@@ -61,6 +61,11 @@ export default class FormValidator {
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
+    if (this._hasInvalidInput(this._inputList)) {
+      this.disableButton();
+    } else {
+      this.activateButton();
+    }
     this._formElement.reset();
   }
 
