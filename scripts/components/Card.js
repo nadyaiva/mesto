@@ -1,16 +1,15 @@
 export class Card {
-  constructor({ data, handleCardClick }, cardSelector) {
+  constructor({ data, handleCardClick}, cardSelector) {
     this._cardItem = data;
     this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
     this._element = this._getTemplate();
     this.countCardLikes();
+    this._trashButtonElement = this._element
+    .querySelector(".elements__button_trash");
+    this.checkDisplayBin();
+    // this.handleDeleteClick = handleDeleteClick;
   }
-
-  // displayCardLike(numberLikes) {
-  //   this._element.querySelector('.elements__info_like-count').textContent = numberLikes;
-  // }
-
 
   _getTemplate() {
     const cardElement = document
@@ -24,14 +23,15 @@ export class Card {
     this._element.querySelector(".elements__image").src = this._cardItem.link;
     this._element.querySelector(".elements__image").alt = this._cardItem.name;
     this._element.querySelector(".elements__caption").textContent =
-      this._cardItem.cardname;
+      this._cardItem.name;
 
     this._setEventListeners();
     return this._element;
   }
 
   _handleDeleteClick() {
-    this._element.remove();
+    this._handleDeleteClick(this._cardItem);
+    //this._element.remove();
   }
 
   _handleLikeClick() {
@@ -51,8 +51,7 @@ export class Card {
         this._handleLikeClick();
       });
 
-    this._element
-      .querySelector(".elements__button_trash")
+      this._trashButtonElement
       .addEventListener("click", () => {
         this._handleDeleteClick();
       });
@@ -64,7 +63,18 @@ export class Card {
       });
   }
   countCardLikes() {
-    this._element.querySelector('.elements__info_like-count').textContent = this._cardItem.likes.length;
-
+    this._element.querySelector(".elements__info_like-count").textContent =
+      this._cardItem.likes.length;
   }
+
+  checkDisplayBin() {
+    if (this._cardItem.owner._id != '24139442016d554a06446484') {
+
+      this._trashButtonElement.classList.add('elements__button_trash_hidden');
+    }
+    else {
+      console.log(this._cardItem);
+    }
+}
+
 }

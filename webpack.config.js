@@ -14,11 +14,12 @@ module.exports = {
   },
   mode: 'development',
   devServer: {
-    static: path.resolve(__dirname, "./dist"),
+    contentBase: path.resolve(__dirname, './dist'),
     open: true,
     compress: true,
     port: 8080
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [{
         test: /\.js$/,

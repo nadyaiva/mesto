@@ -5,16 +5,15 @@ const profile__avatar = new URL(
 );
 import "../pages/index.css";
 import { Card } from "../scripts/components/Card.js";
-import { initialCards } from "../scripts/cards.js";
 import FormValidator from "../scripts/components/FormValidator.js";
 import Section from "../scripts/components/Section.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 import Api from "../scripts/components/Api.js";
+import { ConcatenationScope } from "webpack";
 const buttonAddPhoto = document.querySelector(".profile__button_type_add");
 const buttonEditProfile = document.querySelector(".profile__button_type_edit");
-const likeCountElement = document.querySelector('.elements__info_like-count')
 const profileName = document.querySelector(".profile__name");
 const profileTitle = document.querySelector(".profile__title");
 const config = {
@@ -44,9 +43,16 @@ const handleFullscreenClick = (cardItem) => {
   popupWithImage.open(cardItem);
 };
 
+// const handleDeleteCard = (cardItem) => {
+//   console.log(cardItem._id);
+//   // api.deletePost(cardItem._id);
+// }
+// , handleDeleteClick: handleDeleteCard 
+
 function createCard(item) {
   const card = new Card(
-    { data: item, handleCardClick: handleFullscreenClick },
+    { data: item, handleCardClick: handleFullscreenClick},
+
     ".element-template_default"
   );
   const cardElement = card.generateCard();
@@ -57,10 +63,8 @@ const formAddPopup = new PopupWithForm(
   ".popup_place_add-photo",
   formValidators["popup-add-photo"],
   (cardInputData) => {
-    cardsList.addItem(createCard(cardInputData));
-    console.log(cardInputData);
     api.addNewCard(cardInputData).then((res) => res.json())
-    .then((card) => pass)
+    .then((card) => cardsList.addItem(createCard(card)))
     .catch((err) => {
       console.log(err);
     });
@@ -109,6 +113,7 @@ buttonAddPhoto.addEventListener("click", () => {
 
 const api = new Api({
   authorization: "d94e7cf1-3761-45b6-9798-0ad1da8f2858",
+  id: '24139442016d554a06446484'
 });
 
 const userInfoApi = api.getUserInfoApi();
@@ -136,16 +141,10 @@ cardsApi
   .then((cards) => {
     const cardsArray = [];
     cards.forEach((card) => {
-      const cardObj = { cardname: card.name, link: card.link, likes: card.likes };
-      cardsArray.push(cardObj);
-      // card.countCardLikes(card)
+      cardsArray.push(card);
     });
     cardsList.renderItems(cardsArray);
   })
   .catch((err) => {
     console.log(err);
   });
-
-  // function countLikes(card) {
-  //   // card.displayCardLike(card.likes.length);
-  // }

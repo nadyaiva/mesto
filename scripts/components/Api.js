@@ -63,4 +63,20 @@ export default class Api {
       },
     });
   }
+  deletePost(cardId) {
+    return fetch(
+      "https://mesto.nomoreparties.co/v1/cohort-42/cards/" + cardId,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: this._authorization,
+        },
+      }
+    ).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject("Ошибка. Запрос не выполнен");
+    });
+  }
 }
