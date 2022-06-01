@@ -1,8 +1,3 @@
-const header__logo = new URL("../images/logo.svg", import.meta.url);
-const profile__avatar = new URL(
-  "../images/profile__avatar.jpg",
-  import.meta.url
-);
 import "../pages/index.css";
 import { Card } from "../scripts/components/Card.js";
 import FormValidator from "../scripts/components/FormValidator.js";
@@ -11,11 +6,8 @@ import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 import Api from "../scripts/components/Api.js";
-import { ConcatenationScope } from "webpack";
 const buttonAddPhoto = document.querySelector(".profile__button_type_add");
 const buttonEditProfile = document.querySelector(".profile__button_type_edit");
-const profileName = document.querySelector(".profile__name");
-const profileTitle = document.querySelector(".profile__title");
 const config = {
   formSelector: ".form",
   inputSelector: ".popup__input",
