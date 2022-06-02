@@ -55,8 +55,8 @@ export default class Api {
       }),
     });
   }
-  likeCard() {
-    fetch("https://mesto.nomoreparties.co/v1/cohortId/cards/cohort-42/likes", {
+  likeCard(cardId) {
+    fetch(`https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}/likes`, {
       method: "PUT",
       headers: {
         authorization: this._authorization,

@@ -1,5 +1,5 @@
 export class Card {
-  constructor({ data, handleCardClick}, cardSelector) {
+  constructor({ data, handleCardClick, handleDeleteClick}, cardSelector) {
     this._cardItem = data;
     this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
@@ -8,7 +8,7 @@ export class Card {
     this._trashButtonElement = this._element
     .querySelector(".elements__button_trash");
     this.checkDisplayBin();
-    // this.handleDeleteClick = handleDeleteClick;
+    this.handleDelete = handleDeleteClick;
   }
 
   _getTemplate() {
@@ -30,8 +30,8 @@ export class Card {
   }
 
   _handleDeleteClick() {
-    this._handleDeleteClick(this._cardItem);
-    //this._element.remove();
+    this.handleDelete(this._cardItem);
+    this._element.remove();
   }
 
   _handleLikeClick() {

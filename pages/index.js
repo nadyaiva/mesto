@@ -35,15 +35,13 @@ const handleFullscreenClick = (cardItem) => {
   popupWithImage.open(cardItem);
 };
 
-// const handleDeleteCard = (cardItem) => {
-//   console.log(cardItem._id);
-//   // api.deletePost(cardItem._id);
-// }
-// , handleDeleteClick: handleDeleteCard 
+const handleDeleteCard = (cardItem) => {
+  api.deletePost(cardItem._id);
+}
 
 function createCard(item) {
   const card = new Card(
-    { data: item, handleCardClick: handleFullscreenClick},
+    { data: item, handleCardClick: handleFullscreenClick, handleDeleteClick: handleDeleteCard },
 
     ".element-template_default"
   );
