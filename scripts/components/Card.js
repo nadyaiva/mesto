@@ -8,7 +8,7 @@ export class Card {
     this._trashButtonElement = this._element
     .querySelector(".elements__button_trash");
     this.checkDisplayBin();
-    this.handleDelete = handleDeleteClick;
+    this._handleDelete = handleDeleteClick;
   }
 
   _getTemplate() {
@@ -27,11 +27,6 @@ export class Card {
 
     this._setEventListeners();
     return this._element;
-  }
-
-  _handleDeleteClick() {
-    this.handleDelete(this._cardItem);
-    this._element.remove();
   }
 
   _handleLikeClick() {
@@ -53,7 +48,7 @@ export class Card {
 
       this._trashButtonElement
       .addEventListener("click", () => {
-        this._handleDeleteClick();
+        this._handleDelete(this._cardItem, this._element);
       });
 
     this._element

@@ -1,3 +1,10 @@
+const handleResponse = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
+
 export default class Api {
   constructor(config) {
     //   this._url = config.url;
@@ -10,24 +17,14 @@ export default class Api {
       headers: {
         authorization: this._authorization,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject("Ошибка. Запрос не выполнен");
-    });
+    }).then(handleResponse)
   }
   getInitialCards() {
     return fetch("https://mesto.nomoreparties.co/v1/cohort-42/cards", {
       headers: {
         authorization: this._authorization,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject("Ошибка. Запрос не выполнен");
-    });
+    }).then(handleResponse)
   }
   updateUserInfo(nameInputValue, titleInputValue) {
     return fetch("https://mesto.nomoreparties.co/v1/cohort-42/users/me", {
@@ -53,7 +50,7 @@ export default class Api {
         name: cardInputData.cardname,
         link: cardInputData.link,
       }),
-    });
+    })
   }
   likeCard(cardId) {
     fetch(`https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}/likes`, {
@@ -61,7 +58,7 @@ export default class Api {
       headers: {
         authorization: this._authorization,
       },
-    });
+    }).then(handleResponse);
   }
   deletePost(cardId) {
     return fetch(
@@ -72,11 +69,6 @@ export default class Api {
           authorization: this._authorization,
         },
       }
-    ).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject("Ошибка. Запрос не выполнен");
-    });
+    );
   }
 }

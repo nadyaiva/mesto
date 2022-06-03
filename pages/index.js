@@ -35,13 +35,26 @@ const handleFullscreenClick = (cardItem) => {
   popupWithImage.open(cardItem);
 };
 
-const handleDeleteCard = (cardItem) => {
-  api.deletePost(cardItem._id);
-}
+const handleDeleteCard = (cardItem, cardElement) => {
+  api
+    .deletePost(cardItem._id)
+    .then((res) => {
+      if (res.ok) {
+        cardElement.remove();
+        return res.json();
+      }
+    })
+    .then((data) => console.log(data))
+    .catch((err) => console.log(err));
+};
 
 function createCard(item) {
   const card = new Card(
-    { data: item, handleCardClick: handleFullscreenClick, handleDeleteClick: handleDeleteCard },
+    {
+      data: item,
+      handleCardClick: handleFullscreenClick,
+      handleDeleteClick: handleDeleteCard,
+    },
 
     ".element-template_default"
   );
@@ -53,11 +66,13 @@ const formAddPopup = new PopupWithForm(
   ".popup_place_add-photo",
   formValidators["popup-add-photo"],
   (cardInputData) => {
-    api.addNewCard(cardInputData).then((res) => res.json())
-    .then((card) => cardsList.addItem(createCard(card)))
-    .catch((err) => {
-      console.log(err);
-    });
+    api
+      .addNewCard(cardInputData)
+      .then((res) => res.json())
+      .then((card) => cardsList.addItem(createCard(card)))
+      .catch((err) => {
+        console.log(err);
+      });
     formAddPopup.close();
   }
 );
@@ -103,7 +118,7 @@ buttonAddPhoto.addEventListener("click", () => {
 
 const api = new Api({
   authorization: "d94e7cf1-3761-45b6-9798-0ad1da8f2858",
-  id: '24139442016d554a06446484'
+  id: "24139442016d554a06446484",
 });
 
 const userInfoApi = api.getUserInfoApi();
@@ -126,15 +141,14 @@ const cardsList = new Section(
   ".elements"
 );
 
-const cardsApi = api.getInitialCards();
-cardsApi
-  .then((cards) => {
-    const cardsArray = [];
-    cards.forEach((card) => {
-      cardsArray.push(card);
+function uplodeCards() {
+  const cardsApi = api.getInitialCards();
+  cardsApi
+    .then((cards) => {
+      cardsList.renderItems(cards);
+    })
+    .catch((err) => {
+      console.log(err);
     });
-    cardsList.renderItems(cardsArray);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+}
+uplodeCards();
