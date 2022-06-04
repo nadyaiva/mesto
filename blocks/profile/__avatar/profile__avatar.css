@@ -4,3 +4,10 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
+.profile__avatar:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+  cursor: pointer;
+  /* background-image: url(); */
+}

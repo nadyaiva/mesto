@@ -50,6 +50,10 @@ export class Card {
       .addEventListener("click", () => {
         this._handleDelete(this._cardItem, this._element);
       });
+      // this._trashButtonElement
+      // .addEventListener("click", () => {
+      //   this._handleConfirmationPopup();
+      // });
 
     this._element
       .querySelector(".elements__image")

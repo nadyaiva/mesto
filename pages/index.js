@@ -4,6 +4,7 @@ import FormValidator from "../scripts/components/FormValidator.js";
 import Section from "../scripts/components/Section.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
+import PopupWithConfirmation from "../scripts/components/PopupWithConfirmation.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 import Api from "../scripts/components/Api.js";
 const buttonAddPhoto = document.querySelector(".profile__button_type_add");
@@ -35,6 +36,16 @@ const handleFullscreenClick = (cardItem) => {
   popupWithImage.open(cardItem);
 };
 
+
+ 
+const handleDeleteCardWithPopup = (cardItem, cardElement) => {
+  const popupWithConfirmation = new PopupWithConfirmation('.popup_place_confirm',
+      function() { 
+        return handleDeleteCard(cardItem, cardElement);
+      });
+  popupWithConfirmation.open();
+}
+
 const handleDeleteCard = (cardItem, cardElement) => {
   api
     .deletePost(cardItem._id)
@@ -53,7 +64,7 @@ function createCard(item) {
     {
       data: item,
       handleCardClick: handleFullscreenClick,
-      handleDeleteClick: handleDeleteCard,
+      handleDeleteClick: handleDeleteCardWithPopup
     },
 
     ".element-template_default"
