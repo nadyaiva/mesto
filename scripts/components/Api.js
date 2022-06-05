@@ -53,13 +53,23 @@ export default class Api {
     })
   }
   likeCard(cardId) {
-    fetch(`https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}/likes`, {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}/likes`, {
       method: "PUT",
       headers: {
         authorization: this._authorization,
       },
-    }).then(handleResponse);
+    });
   }
+
+  dislikeCard(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._authorization,
+      },
+    });
+  }
+
   deletePost(cardId) {
     return fetch(
       "https://mesto.nomoreparties.co/v1/cohort-42/cards/" + cardId,

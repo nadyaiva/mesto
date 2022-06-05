@@ -36,15 +36,48 @@ const handleFullscreenClick = (cardItem) => {
   popupWithImage.open(cardItem);
 };
 
+const handleToggleLikeClick = (cardElement, buttonLikeElement, cardId) => {
+  if (buttonLikeElement.classList.contains('elements__button_like_active')) {
+    api
+      .dislikeCard(cardId)
+      .then((res) => {
+        if (res.ok) {
+          buttonLikeElement.classList.toggle("elements__button_like_active");
+          return res.json();
+        }
+      })
+      .then((cardItem) => 
+      updateLikesCard(cardElement, cardItem.likes.length)
+      )
+      .catch((err) => console.log(err));
+  } else {
+    api
+      .likeCard(cardId)
+      .then((res) => {
+        if (res.ok) {
+          buttonLikeElement.classList.toggle("elements__button_like_active");
+          return res.json();
+        }
+      })
+      .then((cardItem) => updateLikesCard(cardElement, cardItem.likes.length))
+      .catch((err) => console.log(err));
+  }
+};
 
- 
-const handleDeleteCardWithPopup = (cardItem, cardElement) => {
-  const popupWithConfirmation = new PopupWithConfirmation('.popup_place_confirm',
-      function() { 
-        return handleDeleteCard(cardItem, cardElement);
-      });
-  popupWithConfirmation.open();
+const updateLikesCard = (cardElement, likeCount) => {
+  cardElement.querySelector(".elements__info_like-count").textContent =
+  likeCount;
 }
+
+const handleDeleteCardWithPopup = (cardItem, cardElement) => {
+  const popupWithConfirmation = new PopupWithConfirmation(
+    ".popup_place_confirm",
+    function () {
+      return handleDeleteCard(cardItem, cardElement);
+    }
+  );
+  popupWithConfirmation.open();
+};
 
 const handleDeleteCard = (cardItem, cardElement) => {
   api
@@ -64,7 +97,8 @@ function createCard(item) {
     {
       data: item,
       handleCardClick: handleFullscreenClick,
-      handleDeleteClick: handleDeleteCardWithPopup
+      handleDeleteClick: handleDeleteCardWithPopup,
+      handleToggleLike: handleToggleLikeClick
     },
 
     ".element-template_default"

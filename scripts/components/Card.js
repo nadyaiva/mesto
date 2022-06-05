@@ -1,14 +1,22 @@
 export class Card {
-  constructor({ data, handleCardClick, handleDeleteClick}, cardSelector) {
+  constructor(
+    { data, handleCardClick, handleDeleteClick, handleToggleLike },
+    cardSelector
+  ) {
     this._cardItem = data;
     this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
     this._element = this._getTemplate();
     this.countCardLikes();
-    this._trashButtonElement = this._element
-    .querySelector(".elements__button_trash");
+    this._trashButtonElement = this._element.querySelector(
+      ".elements__button_trash"
+    );
+    this._buttonLikeElement = this._element.querySelector(
+      ".elements__button_like"
+    );
     this.checkDisplayBin();
     this._handleDelete = handleDeleteClick;
+    this._handleToggleLike = handleToggleLike;
   }
 
   _getTemplate() {
@@ -28,32 +36,28 @@ export class Card {
     this._setEventListeners();
     return this._element;
   }
-
+/*
   _handleLikeClick() {
-    this._element
-      .querySelector(".elements__button_like")
-      .classList.toggle("elements__button_like_active");
+    this.handleCardClick(this._buttonLikeElement, this._cardItem._id);
+    //this._element
+    //  .querySelector(".elements__button_like")
+    //  .classList.toggle("elements__button_like_active");
   }
+  */
 
   _handleFullscreen() {
     this._handleCardClick(this._cardItem);
   }
 
   _setEventListeners() {
-    this._element
-      .querySelector(".elements__button_like")
-      .addEventListener("click", () => {
-        this._handleLikeClick();
-      });
+    this._buttonLikeElement.addEventListener("click", () => {
+      this._handleToggleLike(this._element, this._buttonLikeElement, this._cardItem._id);
+      // this._handleLikeClick();
+    });
 
-      this._trashButtonElement
-      .addEventListener("click", () => {
-        this._handleDelete(this._cardItem, this._element);
-      });
-      // this._trashButtonElement
-      // .addEventListener("click", () => {
-      //   this._handleConfirmationPopup();
-      // });
+    this._trashButtonElement.addEventListener("click", () => {
+      this._handleDelete(this._cardItem, this._element);
+    });
 
     this._element
       .querySelector(".elements__image")
@@ -67,13 +71,10 @@ export class Card {
   }
 
   checkDisplayBin() {
-    if (this._cardItem.owner._id != '24139442016d554a06446484') {
-
-      this._trashButtonElement.classList.add('elements__button_trash_hidden');
-    }
-    else {
+    if (this._cardItem.owner._id != "24139442016d554a06446484") {
+      this._trashButtonElement.classList.add("elements__button_trash_hidden");
+    } else {
       console.log(this._cardItem);
     }
-}
-
+  }
 }
