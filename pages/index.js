@@ -116,10 +116,10 @@ const formAddPopup = new PopupWithForm(
       .then((card) => cardsList.addItem(createCard(card)))
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        formAddPopup.renderLoading(false);
       });
-      // .finally(() => {
-      //   formAddPopup.renderLoading(false);
-      // });
     formAddPopup.close();
   }
 );
@@ -134,6 +134,8 @@ const formAvatar = new PopupWithForm(
       .then((data) => (buttonAvatar.src = data.avatar))
       .catch((err) => {
         console.log(err);
+      }).finally(() => {
+        formAvatar.renderLoading(false);
       });
     formAvatar.close();
   }
@@ -169,7 +171,7 @@ const formEditPopup = new PopupWithForm(
         console.log("Ошибка. Запрос не выполнен: ", err);
       })
       .finally(() => {
-        formAddPopup.renderLoading(false);
+        formEditPopup.renderLoading(false);
       });
     formEditPopup.close();
   }

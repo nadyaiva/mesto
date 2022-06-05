@@ -5,6 +5,20 @@ export default class Popup {
     this.setEventListeners();
   }
 
+  renderLoading(isLoading) {
+    // console.log('renderLoading: isLoading = ' + isLoading);
+    this._saveButton = document.querySelector('.popup__save-button');
+    if (isLoading) {
+      // console.log('trying to set a textContent to saveButton = ' + this._saveButton);
+      // console.log('current textContent = ' + this._saveButton.textContent);
+      this._saveButton.textContent = 'Сохранение..';
+      // setTimeout('', 5000);
+    }
+    else {
+      this._saveButton.textContent = document.querySelector('.popup__save-button').textContent;
+    }
+  }
+
   getFormElement() {
     return this._popup.querySelector(".form");
   }
