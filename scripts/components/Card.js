@@ -36,14 +36,6 @@ export class Card {
     this._setEventListeners();
     return this._element;
   }
-/*
-  _handleLikeClick() {
-    this.handleCardClick(this._buttonLikeElement, this._cardItem._id);
-    //this._element
-    //  .querySelector(".elements__button_like")
-    //  .classList.toggle("elements__button_like_active");
-  }
-  */
 
   _handleFullscreen() {
     this._handleCardClick(this._cardItem);
@@ -52,7 +44,6 @@ export class Card {
   _setEventListeners() {
     this._buttonLikeElement.addEventListener("click", () => {
       this._handleToggleLike(this._element, this._buttonLikeElement, this._cardItem._id);
-      // this._handleLikeClick();
     });
 
     this._trashButtonElement.addEventListener("click", () => {
@@ -66,8 +57,8 @@ export class Card {
       });
   }
   countCardLikes() {
-    this._element.querySelector(".elements__info_like-count").textContent =
-      this._cardItem.likes.length;
+    
+    this._element.querySelector(".elements__info_like-count").textContent = this._cardItem.likes.length;
   }
 
   checkDisplayBin() {

@@ -9,6 +9,7 @@ import UserInfo from "../scripts/components/UserInfo.js";
 import Api from "../scripts/components/Api.js";
 const buttonAddPhoto = document.querySelector(".profile__button_type_add");
 const buttonEditProfile = document.querySelector(".profile__button_type_edit");
+const buttonAvatar = document.querySelector(".profile__avatar");
 const config = {
   formSelector: ".form",
   inputSelector: ".popup__input",
@@ -37,7 +38,7 @@ const handleFullscreenClick = (cardItem) => {
 };
 
 const handleToggleLikeClick = (cardElement, buttonLikeElement, cardId) => {
-  if (buttonLikeElement.classList.contains('elements__button_like_active')) {
+  if (buttonLikeElement.classList.contains("elements__button_like_active")) {
     api
       .dislikeCard(cardId)
       .then((res) => {
@@ -46,9 +47,7 @@ const handleToggleLikeClick = (cardElement, buttonLikeElement, cardId) => {
           return res.json();
         }
       })
-      .then((cardItem) => 
-      updateLikesCard(cardElement, cardItem.likes.length)
-      )
+      .then((cardItem) => updateLikesCard(cardElement, cardItem.likes.length))
       .catch((err) => console.log(err));
   } else {
     api
@@ -66,8 +65,8 @@ const handleToggleLikeClick = (cardElement, buttonLikeElement, cardId) => {
 
 const updateLikesCard = (cardElement, likeCount) => {
   cardElement.querySelector(".elements__info_like-count").textContent =
-  likeCount;
-}
+    likeCount;
+};
 
 const handleDeleteCardWithPopup = (cardItem, cardElement) => {
   const popupWithConfirmation = new PopupWithConfirmation(
@@ -118,9 +117,32 @@ const formAddPopup = new PopupWithForm(
       .catch((err) => {
         console.log(err);
       });
+      // .finally(() => {
+      //   formAddPopup.renderLoading(false);
+      // });
     formAddPopup.close();
   }
 );
+
+const formAvatar = new PopupWithForm(
+  ".popup_place_avatar",
+  formValidators["popup-avatar"],
+  (urlImage) => {
+    api
+      .updateAvatar(urlImage.link)
+      .then((res) => res.json())
+      .then((data) => (buttonAvatar.src = data.avatar))
+      .catch((err) => {
+        console.log(err);
+      });
+    formAvatar.close();
+  }
+);
+
+buttonAvatar.addEventListener("click", () => {
+  formValidators[formAvatar.getFormElement().name].resetValidation();
+  formAvatar.open();
+});
 
 const userInfo = new UserInfo(
   ".profile__name",
@@ -145,6 +167,9 @@ const formEditPopup = new PopupWithForm(
       .then((json) => console.log(json))
       .catch((err) => {
         console.log("Ошибка. Запрос не выполнен: ", err);
+      })
+      .finally(() => {
+        formAddPopup.renderLoading(false);
       });
     formEditPopup.close();
   }
@@ -164,6 +189,7 @@ buttonAddPhoto.addEventListener("click", () => {
 const api = new Api({
   authorization: "d94e7cf1-3761-45b6-9798-0ad1da8f2858",
   id: "24139442016d554a06446484",
+  cohort: "cohort-42",
 });
 
 const userInfoApi = api.getUserInfoApi();

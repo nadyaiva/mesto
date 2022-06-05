@@ -8,6 +8,21 @@ export default class PopupWithForm extends Popup {
     this._inputJob = this._popup.querySelector(".popup__input_type_job");
     this._formValidator = formValidator;
     this._formValidator.resetValidation();
+    
+  }
+
+  renderLoading(isLoading) {
+    // console.log('renderLoading: isLoading = ' + isLoading);
+    this._saveButton = document.querySelector('.popup__save-button');
+    if (isLoading) {
+      // console.log('trying to set a textContent to saveButton = ' + this._saveButton);
+      // console.log('current textContent = ' + this._saveButton.textContent);
+      this._saveButton.textContent = 'Сохранение..';
+      // setTimeout('', 5000);
+    }
+    else {
+      this._saveButton.textContent = 'Сохранить';
+    }
   }
 
   _getInputValues() {
@@ -32,6 +47,7 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     this._popup.addEventListener("submit", (evt) => {
       evt.preventDefault();
+      this.renderLoading(true)
       this._formSubmit(this._getInputValues());
       this.close();
     });
