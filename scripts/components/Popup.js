@@ -1,21 +1,19 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
-    this._handleEscClose = this._handleEscClose.bind(this)
+    this._handleEscClose = this._handleEscClose.bind(this);
     this.setEventListeners();
   }
 
   renderLoading(isLoading) {
-    // console.log('renderLoading: isLoading = ' + isLoading);
-    this._saveButton = document.querySelector('.popup__save-button');
+    this._saveButton = this._popup.querySelector(".popup__save-button");
     if (isLoading) {
-      // console.log('trying to set a textContent to saveButton = ' + this._saveButton);
-      // console.log('current textContent = ' + this._saveButton.textContent);
-      this._saveButton.textContent = 'Сохранение..';
-      // setTimeout('', 5000);
-    }
-    else {
-      this._saveButton.textContent = document.querySelector('.popup__save-button').textContent;
+      if (this._saveButton.textContent != "Сохранение..") {
+        this._initialText = this._saveButton.textContent;
+      }
+      this._saveButton.textContent = "Сохранение..";
+    } else {
+      this._saveButton.textContent = this._initialText;
     }
   }
 
@@ -25,11 +23,11 @@ export default class Popup {
 
   open() {
     this._popup.classList.add("popup_opened");
-    document.addEventListener('keydown', this._handleEscClose);
+    document.addEventListener("keydown", this._handleEscClose);
   }
   close() {
     this._popup.classList.remove("popup_opened");
-    document.removeEventListener('keydown', this._handleEscClose);
+    document.removeEventListener("keydown", this._handleEscClose);
   }
   _handleEscClose(evt) {
     const escape = 27;

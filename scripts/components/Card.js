@@ -43,7 +43,11 @@ export class Card {
 
   _setEventListeners() {
     this._buttonLikeElement.addEventListener("click", () => {
-      this._handleToggleLike(this._element, this._buttonLikeElement, this._cardItem._id);
+      this._handleToggleLike(
+        this._element,
+        this._buttonLikeElement,
+        this._cardItem._id
+      );
     });
 
     this._trashButtonElement.addEventListener("click", () => {
@@ -57,15 +61,13 @@ export class Card {
       });
   }
   countCardLikes() {
-    
-    this._element.querySelector(".elements__info_like-count").textContent = this._cardItem.likes.length;
+    this._element.querySelector(".elements__info_like-count").textContent =
+      this._cardItem.likes.length;
   }
 
   checkDisplayBin() {
     if (this._cardItem.owner._id != "24139442016d554a06446484") {
       this._trashButtonElement.classList.add("elements__button_trash_hidden");
-    } else {
-      console.log(this._cardItem);
     }
   }
 }

@@ -10,8 +10,6 @@ export default class PopupWithForm extends Popup {
     this._formValidator.resetValidation();
   }
 
-
-
   _getInputValues() {
     this._inputValues = {};
     this._inputList.forEach((inputItem) => {
@@ -34,7 +32,7 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     this._popup.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      super.renderLoading(true)
+      super.renderLoading(true);
       this._formSubmit(this._getInputValues());
       this.close();
     });

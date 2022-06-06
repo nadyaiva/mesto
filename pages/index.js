@@ -19,6 +19,44 @@ const config = {
   errorClass: "popup__input-error_active",
 };
 
+const api = new Api({
+  authorization: "d94e7cf1-3761-45b6-9798-0ad1da8f2858",
+  id: "24139442016d554a06446484",
+  cohort: "cohort-42",
+});
+
+const cardsList = new Section(
+  {
+    renderer: (cardItem) => {
+      cardsList.addItem(createCard(cardItem));
+    },
+  },
+  ".elements"
+);
+
+function uplodeCards() {
+  const cardsApi = api.getInitialCards();
+  cardsApi
+    .then((cards) => {
+      cardsList.renderItems(cards);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+uplodeCards();
+
+const userInfoApi = api.getUserInfoApi();
+userInfoApi
+  .then((data) => {
+    userInfo.setUserInfo({ nameInput: data.name, jobInput: data.about });
+    userInfo.setUserAvatar(data.avatar);
+  })
+
+  .catch((err) => {
+    console.log(err);
+  });
+
 const formValidators = {};
 
 const enableValidation = (config) => {
@@ -63,11 +101,6 @@ const handleToggleLikeClick = (cardElement, buttonLikeElement, cardId) => {
   }
 };
 
-const updateLikesCard = (cardElement, likeCount) => {
-  cardElement.querySelector(".elements__info_like-count").textContent =
-    likeCount;
-};
-
 const handleDeleteCardWithPopup = (cardItem, cardElement) => {
   const popupWithConfirmation = new PopupWithConfirmation(
     ".popup_place_confirm",
@@ -97,7 +130,7 @@ function createCard(item) {
       data: item,
       handleCardClick: handleFullscreenClick,
       handleDeleteClick: handleDeleteCardWithPopup,
-      handleToggleLike: handleToggleLikeClick
+      handleToggleLike: handleToggleLikeClick,
     },
 
     ".element-template_default"
@@ -110,6 +143,7 @@ const formAddPopup = new PopupWithForm(
   ".popup_place_add-photo",
   formValidators["popup-add-photo"],
   (cardInputData) => {
+    formAddPopup.renderLoading(true);
     api
       .addNewCard(cardInputData)
       .then((res) => res.json())
@@ -118,9 +152,9 @@ const formAddPopup = new PopupWithForm(
         console.log(err);
       })
       .finally(() => {
+        formAddPopup.close();
         formAddPopup.renderLoading(false);
       });
-    formAddPopup.close();
   }
 );
 
@@ -134,17 +168,13 @@ const formAvatar = new PopupWithForm(
       .then((data) => (buttonAvatar.src = data.avatar))
       .catch((err) => {
         console.log(err);
-      }).finally(() => {
+      })
+      .finally(() => {
         formAvatar.renderLoading(false);
+        formAvatar.close();
       });
-    formAvatar.close();
   }
 );
-
-buttonAvatar.addEventListener("click", () => {
-  formValidators[formAvatar.getFormElement().name].resetValidation();
-  formAvatar.open();
-});
 
 const userInfo = new UserInfo(
   ".profile__name",
@@ -177,6 +207,11 @@ const formEditPopup = new PopupWithForm(
   }
 );
 
+const updateLikesCard = (cardElement, likeCount) => {
+  cardElement.querySelector(".elements__info_like-count").textContent =
+    likeCount;
+};
+
 buttonEditProfile.addEventListener("click", () => {
   formValidators[formEditPopup.getFormElement().name].resetValidation();
   formEditPopup.setInputValues(userInfo.getUserInfo());
@@ -188,40 +223,7 @@ buttonAddPhoto.addEventListener("click", () => {
   formAddPopup.open();
 });
 
-const api = new Api({
-  authorization: "d94e7cf1-3761-45b6-9798-0ad1da8f2858",
-  id: "24139442016d554a06446484",
-  cohort: "cohort-42",
+buttonAvatar.addEventListener("click", () => {
+  formValidators[formAvatar.getFormElement().name].resetValidation();
+  formAvatar.open();
 });
-
-const userInfoApi = api.getUserInfoApi();
-userInfoApi
-  .then((data) => {
-    userInfo.setUserInfo({ nameInput: data.name, jobInput: data.about });
-    userInfo.setUserAvatar(data.avatar);
-  })
-
-  .catch((err) => {
-    console.log(err);
-  });
-
-const cardsList = new Section(
-  {
-    renderer: (cardItem) => {
-      cardsList.addItem(createCard(cardItem));
-    },
-  },
-  ".elements"
-);
-
-function uplodeCards() {
-  const cardsApi = api.getInitialCards();
-  cardsApi
-    .then((cards) => {
-      cardsList.renderItems(cards);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-uplodeCards();

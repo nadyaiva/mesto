@@ -18,14 +18,14 @@ export default class Api {
       headers: {
         authorization: this._authorization,
       },
-    }).then(handleResponse)
+    }).then(handleResponse);
   }
   getInitialCards() {
     return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/cards`, {
       headers: {
         authorization: this._authorization,
       },
-    }).then(handleResponse)
+    }).then(handleResponse);
   }
   updateUserInfo(nameInputValue, titleInputValue) {
     return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/users/me`, {
