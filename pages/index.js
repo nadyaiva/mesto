@@ -21,8 +21,8 @@ const config = {
 
 const api = new Api({
   authorization: "d94e7cf1-3761-45b6-9798-0ad1da8f2858",
-  id: "24139442016d554a06446484",
   cohort: "cohort-42",
+  baseurl: "https://nomoreparties.co/v1/",
 });
 
 const cardsList = new Section(

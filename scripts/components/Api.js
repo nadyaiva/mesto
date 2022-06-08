@@ -7,28 +7,27 @@ const handleResponse = (res) => {
 
 export default class Api {
   constructor(config) {
-    //   this._url = config.url;
     this._authorization = config.authorization;
     this._cohort = config.cohort;
-    this._id = config.id;
+    this._baseurl = config.baseurl
   }
 
   getUserInfoApi() {
-    return fetch(`https://nomoreparties.co/v1/${this._cohort}/users/me`, {
+    return fetch(`${this._baseurl}${this._cohort}/users/me`, {
       headers: {
         authorization: this._authorization,
       },
     }).then(handleResponse);
   }
   getInitialCards() {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/cards`, {
+    return fetch(`${this._baseurl}${this._cohort}/cards`, {
       headers: {
         authorization: this._authorization,
       },
     }).then(handleResponse);
   }
   updateUserInfo(nameInputValue, titleInputValue) {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/users/me`, {
+    return fetch(`${this._baseurl}${this._cohort}/users/me`, {
       method: "PATCH",
       headers: {
         authorization: this._authorization,
@@ -41,7 +40,7 @@ export default class Api {
     });
   }
   addNewCard(cardInputData) {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/cards`, {
+    return fetch(`${this._baseurl}${this._cohort}/cards`, {
       method: "POST",
       headers: {
         authorization: this._authorization,
@@ -55,7 +54,7 @@ export default class Api {
   }
   likeCard(cardId) {
     return fetch(
-      `https://mesto.nomoreparties.co/v1/${this._cohort}/cards/${cardId}/likes`,
+      `${this._baseurl}${this._cohort}/cards/${cardId}/likes`,
       {
         method: "PUT",
         headers: {
@@ -67,7 +66,7 @@ export default class Api {
 
   dislikeCard(cardId) {
     return fetch(
-      `https://mesto.nomoreparties.co/v1/${this._cohort}/cards/${cardId}/likes`,
+      `${this._baseurl}${this._cohort}/cards/${cardId}/likes`,
       {
         method: "DELETE",
         headers: {
@@ -79,7 +78,7 @@ export default class Api {
 
   deletePost(cardId) {
     return fetch(
-      `https://mesto.nomoreparties.co/v1/${this._cohort}/cards/${cardId}`,
+      `${this._baseurl}${this._cohort}/cards/${cardId}`,
       {
         method: "DELETE",
         headers: {
@@ -90,7 +89,7 @@ export default class Api {
   }
   updateAvatar(urlImage) {
     return fetch(
-      `https://mesto.nomoreparties.co/v1/${this._cohort}/users/me/avatar`,
+      `${this._baseurl}${this._cohort}/users/me/avatar`,
       {
         method: "PATCH",
         headers: {
