@@ -88,9 +88,9 @@ const handleToggleLikeClick = (cardElement, buttonLikeElement, cardId) => {
     api
       .likeCard(cardId)
       .then((cardItem) => {
-          buttonLikeElement.classList.toggle("elements__button_like_active");
-          updateLikesCard(cardElement, cardItem.likes.length);
-        })
+        buttonLikeElement.classList.toggle("elements__button_like_active");
+        updateLikesCard(cardElement, cardItem.likes.length);
+      })
       .catch((err) => console.log(err));
   }
 };
@@ -134,12 +134,13 @@ const formAddPopup = new PopupWithForm(
     formAddPopup.renderLoading(true);
     api
       .addNewCard(cardInputData)
-      .then((card) => cardsList.addItem(createCard(card)))
+      .then((card) => {cardsList.addItem(createCard(card));
+        formAddPopup.close();})
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        formAddPopup.close();
+        
         formAddPopup.renderLoading(false);
       });
   }
@@ -151,13 +152,15 @@ const formAvatar = new PopupWithForm(
   (urlImage) => {
     api
       .updateAvatar(urlImage.link)
-      .then((data) => (buttonAvatar.src = data.avatar))
+      .then((data) => {
+        buttonAvatar.src = data.avatar;
+        formAvatar.close();
+      })
       .catch((err) => {
-        console.log(err);
+        console.log("Ошибка. Запрос не выполнен: ", err);
       })
       .finally(() => {
         formAvatar.renderLoading(false);
-        formAvatar.close();
       });
   }
 );
@@ -176,10 +179,9 @@ const formEditPopup = new PopupWithForm(
       nameInput: userInputData.fullname,
       jobInput: userInputData.jobtitle,
     });
-    const userInfoUpdate = api.updateUserInfo(
-      userInputData.fullname,
-      userInputData.jobtitle
-    );
+    const userInfoUpdate = api
+      .updateUserInfo(userInputData.fullname, userInputData.jobtitle)
+      .then(formEditPopup.close());
     userInfoUpdate
       .catch((err) => {
         console.log("Ошибка. Запрос не выполнен: ", err);
@@ -187,7 +189,6 @@ const formEditPopup = new PopupWithForm(
       .finally(() => {
         formEditPopup.renderLoading(false);
       });
-    formEditPopup.close();
   }
 );
 
