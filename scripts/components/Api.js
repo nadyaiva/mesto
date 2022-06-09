@@ -37,7 +37,7 @@ export default class Api {
         name: nameInputValue,
         about: titleInputValue,
       }),
-    });
+    }).then(this._handleResponse);
   }
   addNewCard(cardInputData) {
     return fetch(`${this._baseurl}${this._cohort}/cards`, {
@@ -50,7 +50,7 @@ export default class Api {
         name: cardInputData.cardname,
         link: cardInputData.link,
       }),
-    });
+    }).then(this._handleResponse);
   }
   likeCard(cardId) {
     return fetch(
@@ -85,7 +85,7 @@ export default class Api {
           authorization: this._authorization,
         },
       }
-    );
+    ).then(this._handleResponse);
   }
   updateAvatar(urlImage) {
     return fetch(
@@ -100,6 +100,6 @@ export default class Api {
           avatar: urlImage,
         }),
       }
-    );
+    ).then(this._handleResponse);
   }
 }

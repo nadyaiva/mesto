@@ -82,7 +82,6 @@ const handleToggleLikeClick = (cardElement, buttonLikeElement, cardId) => {
       .then((cardItem) => {
         buttonLikeElement.classList.toggle("elements__button_like_active");
         updateLikesCard(cardElement, cardItem.likes.length);
-        return res.json();
       })
       .catch((err) => console.log(err));
   } else {
@@ -109,13 +108,7 @@ const handleDeleteCardWithPopup = (cardItem, cardElement) => {
 const handleDeleteCard = (cardItem, cardElement) => {
   api
     .deletePost(cardItem._id)
-    .then((res) => {
-      if (res.ok) {
-        cardElement.remove();
-        return res.json();
-      }
-    })
-    .then((data) => console.log(data))
+    .then(cardElement.remove())
     .catch((err) => console.log(err));
 };
 
@@ -141,7 +134,6 @@ const formAddPopup = new PopupWithForm(
     formAddPopup.renderLoading(true);
     api
       .addNewCard(cardInputData)
-      .then((res) => res.json())
       .then((card) => cardsList.addItem(createCard(card)))
       .catch((err) => {
         console.log(err);
@@ -159,7 +151,6 @@ const formAvatar = new PopupWithForm(
   (urlImage) => {
     api
       .updateAvatar(urlImage.link)
-      .then((res) => res.json())
       .then((data) => (buttonAvatar.src = data.avatar))
       .catch((err) => {
         console.log(err);
@@ -190,8 +181,6 @@ const formEditPopup = new PopupWithForm(
       userInputData.jobtitle
     );
     userInfoUpdate
-      .then((res) => res.json())
-      .then((json) => console.log(json))
       .catch((err) => {
         console.log("Ошибка. Запрос не выполнен: ", err);
       })
