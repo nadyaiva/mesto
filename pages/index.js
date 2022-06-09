@@ -1,4 +1,4 @@
-import "../pages/index.css";
+import "./index.css";
 import { Card } from "../scripts/components/Card.js";
 import FormValidator from "../scripts/components/FormValidator.js";
 import Section from "../scripts/components/Section.js";
@@ -79,24 +79,19 @@ const handleToggleLikeClick = (cardElement, buttonLikeElement, cardId) => {
   if (buttonLikeElement.classList.contains("elements__button_like_active")) {
     api
       .dislikeCard(cardId)
-      .then((res) => {
-        if (res.ok) {
-          buttonLikeElement.classList.toggle("elements__button_like_active");
-          return res.json();
-        }
+      .then((cardItem) => {
+        buttonLikeElement.classList.toggle("elements__button_like_active");
+        updateLikesCard(cardElement, cardItem.likes.length);
+        return res.json();
       })
-      .then((cardItem) => updateLikesCard(cardElement, cardItem.likes.length))
       .catch((err) => console.log(err));
   } else {
     api
       .likeCard(cardId)
-      .then((res) => {
-        if (res.ok) {
+      .then((cardItem) => {
           buttonLikeElement.classList.toggle("elements__button_like_active");
-          return res.json();
-        }
-      })
-      .then((cardItem) => updateLikesCard(cardElement, cardItem.likes.length))
+          updateLikesCard(cardElement, cardItem.likes.length);
+        })
       .catch((err) => console.log(err));
   }
 };

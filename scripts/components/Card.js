@@ -70,4 +70,7 @@ export class Card {
       this._trashButtonElement.classList.add("elements__button_trash_hidden");
     }
   }
+  statusliketoggle() {
+    this._buttonLikeElement.classList.toggle("elements__button_like_active")
+  }
 }

@@ -1,10 +1,3 @@
-const handleResponse = (res) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка: ${res.status}`);
-};
-
 export default class Api {
   constructor(config) {
     this._authorization = config.authorization;
@@ -12,19 +5,26 @@ export default class Api {
     this._baseurl = config.baseurl
   }
 
+  _handleResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`)
+  }
+
   getUserInfoApi() {
     return fetch(`${this._baseurl}${this._cohort}/users/me`, {
       headers: {
         authorization: this._authorization,
       },
-    }).then(handleResponse);
+    }).then(this._handleResponse);
   }
   getInitialCards() {
     return fetch(`${this._baseurl}${this._cohort}/cards`, {
       headers: {
         authorization: this._authorization,
       },
-    }).then(handleResponse);
+    }).then(this._handleResponse);
   }
   updateUserInfo(nameInputValue, titleInputValue) {
     return fetch(`${this._baseurl}${this._cohort}/users/me`, {
@@ -61,7 +61,7 @@ export default class Api {
           authorization: this._authorization,
         },
       }
-    );
+    ).then(this._handleResponse);
   }
 
   dislikeCard(cardId) {
@@ -73,7 +73,7 @@ export default class Api {
           authorization: this._authorization,
         },
       }
-    );
+    ).then(this._handleResponse);
   }
 
   deletePost(cardId) {
