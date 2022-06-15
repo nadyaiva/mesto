@@ -5,17 +5,17 @@ export default class Popup {
     this.setEventListeners();
   }
 
-  renderLoading(isLoading) {
-    this._saveButton = this._popup.querySelector(".popup__save-button");
-    if (isLoading) {
-      if (this._saveButton.textContent != "Сохранение..") {
-        this._initialText = this._saveButton.textContent;
-      }
-      this._saveButton.textContent = "Сохранение..";
-    } else {
-      this._saveButton.textContent = this._initialText;
-    }
-  }
+  // renderLoading(isLoading) {
+  //   this._saveButton = this._popup.querySelector(".popup__save-button");
+  //   if (isLoading) {
+  //     if (this._saveButton.textContent != "Сохранение..") {
+  //       this._initialText = this._saveButton.textContent;
+  //     }
+  //     this._saveButton.textContent = "Сохранение..";
+  //   } else {
+  //     this._saveButton.textContent = this._initialText;
+  //   }
+  // }
 
   getFormElement() {
     return this._popup.querySelector(".form");

@@ -2,14 +2,14 @@ export default class Api {
   constructor(config) {
     this._authorization = config.authorization;
     this._cohort = config.cohort;
-    this._baseurl = config.baseurl
+    this._baseurl = config.baseurl;
   }
 
   _handleResponse(res) {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка: ${res.status}`)
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
 
   getUserInfoApi() {
@@ -52,54 +52,34 @@ export default class Api {
       }),
     }).then(this._handleResponse);
   }
-  likeCard(cardId) {
-    return fetch(
-      `${this._baseurl}${this._cohort}/cards/${cardId}/likes`,
-      {
-        method: "PUT",
-        headers: {
-          authorization: this._authorization,
-        },
-      }
-    ).then(this._handleResponse);
-  }
 
-  dislikeCard(cardId) {
-    return fetch(
-      `${this._baseurl}${this._cohort}/cards/${cardId}/likes`,
-      {
-        method: "DELETE",
+  changeCardLikeStatus(cardId, isLiked) {
+      return fetch(`${this._baseurl}${this._cohort}/cards/${cardId}/likes`, {
+        method: isLiked ? 'PUT' : 'DELETE',
         headers: {
           authorization: this._authorization,
         },
-      }
-    ).then(this._handleResponse);
+      }).then(this._handleResponse);
   }
 
   deletePost(cardId) {
-    return fetch(
-      `${this._baseurl}${this._cohort}/cards/${cardId}`,
-      {
-        method: "DELETE",
-        headers: {
-          authorization: this._authorization,
-        },
-      }
-    ).then(this._handleResponse);
+    return fetch(`${this._baseurl}${this._cohort}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._authorization,
+      },
+    }).then(this._handleResponse);
   }
   updateAvatar(urlImage) {
-    return fetch(
-      `${this._baseurl}${this._cohort}/users/me/avatar`,
-      {
-        method: "PATCH",
-        headers: {
-          authorization: this._authorization,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          avatar: urlImage,
-        }),
-      }
-    ).then(this._handleResponse);
+    return fetch(`${this._baseurl}${this._cohort}/users/me/avatar`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        avatar: urlImage,
+      }),
+    }).then(this._handleResponse);
   }
 }

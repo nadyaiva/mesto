@@ -19,11 +19,28 @@ const config = {
   errorClass: "popup__input-error_active",
 };
 
+let userId;
+
 const api = new Api({
   authorization: "d94e7cf1-3761-45b6-9798-0ad1da8f2858",
   cohort: "cohort-42",
   baseurl: "https://nomoreparties.co/v1/",
 });
+
+const userInfo = new UserInfo(
+  ".profile__name",
+  ".profile__title",
+  ".profile__avatar"
+);
+
+Promise.all([api.getUserInfoApi(), api.getInitialCards()])
+  .then(([data, cards]) => {
+    userInfo.setUserAvatar(data.avatar);
+    userInfo.setUserInfo({ nameInput: data.name, jobInput: data.about });
+    userId = data._id;
+    cardsList.renderItems(cards);
+  })
+  .catch((err) => console.log(err));
 
 const cardsList = new Section(
   {
@@ -33,29 +50,6 @@ const cardsList = new Section(
   },
   ".elements"
 );
-
-function uplodeCards() {
-  const cardsApi = api.getInitialCards();
-  cardsApi
-    .then((cards) => {
-      cardsList.renderItems(cards);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-uplodeCards();
-
-const userInfoApi = api.getUserInfoApi();
-userInfoApi
-  .then((data) => {
-    userInfo.setUserInfo({ nameInput: data.name, jobInput: data.about });
-    userInfo.setUserAvatar(data.avatar);
-  })
-
-  .catch((err) => {
-    console.log(err);
-  });
 
 const formValidators = {};
 
@@ -75,53 +69,48 @@ const handleFullscreenClick = (cardItem) => {
   popupWithImage.open(cardItem);
 };
 
-const handleToggleLikeClick = (cardElement, buttonLikeElement, cardId) => {
-  if (buttonLikeElement.classList.contains("elements__button_like_active")) {
-    api
-      .dislikeCard(cardId)
-      .then((cardItem) => {
-        buttonLikeElement.classList.toggle("elements__button_like_active");
-        updateLikesCard(cardElement, cardItem.likes.length);
-      })
-      .catch((err) => console.log(err));
-  } else {
-    api
-      .likeCard(cardId)
-      .then((cardItem) => {
-        buttonLikeElement.classList.toggle("elements__button_like_active");
-        updateLikesCard(cardElement, cardItem.likes.length);
-      })
-      .catch((err) => console.log(err));
-  }
-};
+// const handleToggleLikeClick = (card, cardId) => {
+//   api
+//     .changeCardLikeStatus(cardId, !card.isLiked())
+//     .then((data) => {
+//       console.log('andleToggleLikeClick', data)
+//       card.statusliketoggle(data);
+//     })
+//     .catch((err) => console.log(err));
+// };
 
-const handleDeleteCardWithPopup = (cardItem, cardElement) => {
-  const popupWithConfirmation = new PopupWithConfirmation(
-    ".popup_place_confirm",
-    function () {
-      return handleDeleteCard(cardItem, cardElement);
-    }
-  );
-  popupWithConfirmation.open();
-};
+const popupWithConfirmation = new PopupWithConfirmation('.popup_place_confirm');
 
-const handleDeleteCard = (cardItem, cardElement) => {
-  api
-    .deletePost(cardItem._id)
-    .then(cardElement.remove())
-    .catch((err) => console.log(err));
-};
-
-function createCard(item) {
+function createCard(cardItem) {
   const card = new Card(
     {
-      data: item,
       handleCardClick: handleFullscreenClick,
-      handleDeleteClick: handleDeleteCardWithPopup,
-      handleToggleLike: handleToggleLikeClick,
+      handleDeleteClick: (cardItem) => {
+        popupWithConfirmation.visualizeLoading('Да')
+        popupWithConfirmation.setSubmitHandler(() => {
+            api.deletePost(cardItem._cardItem._id)
+            .then((data) => {
+              popupWithConfirmation.close()
+              card.deleteCard();
+            })
+            .catch(err => console.log(err))
+            .finally(popupWithConfirmation.visualizeLoading('Удаление...'))
+        });
+        popupWithConfirmation.open();
+      },
+      handleToggleLike: (card, cardId) => {
+        api
+          .changeCardLikeStatus(cardId, !card.isLiked())
+          .then((data) => {
+            console.log('andleToggleLikeClick', data)
+            card.statusliketoggle(data);
+          })
+          .catch((err) => console.log(err));
+      }
     },
-
-    ".element-template_default"
+    cardItem,
+    ".element-template_default",
+    userId
   );
   const cardElement = card.generateCard();
   return cardElement;
@@ -131,20 +120,23 @@ const formAddPopup = new PopupWithForm(
   ".popup_place_add-photo",
   formValidators["popup-add-photo"],
   (cardInputData) => {
-    formAddPopup.renderLoading(true);
+    // formAddPopup.renderLoading(true);
     api
       .addNewCard(cardInputData)
-      .then((card) => {cardsList.addItem(createCard(card));
-        formAddPopup.close();})
+      .then((card) => {
+        cardsList.addItem(createCard(card));
+        formAddPopup.close();
+      })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        
-        formAddPopup.renderLoading(false);
+        // formAddPopup.renderLoading(false);
       });
   }
 );
+
+
 
 const formAvatar = new PopupWithForm(
   ".popup_place_avatar",
@@ -153,7 +145,7 @@ const formAvatar = new PopupWithForm(
     api
       .updateAvatar(urlImage.link)
       .then((data) => {
-        buttonAvatar.src = data.avatar;
+        userInfo.setUserAvatar(data.avatar);
         formAvatar.close();
       })
       .catch((err) => {
@@ -165,23 +157,19 @@ const formAvatar = new PopupWithForm(
   }
 );
 
-const userInfo = new UserInfo(
-  ".profile__name",
-  ".profile__title",
-  ".profile__avatar"
-);
-
 const formEditPopup = new PopupWithForm(
   ".popup_place_edit-profile",
   formValidators["form-profile"],
   (userInputData) => {
-    userInfo.setUserInfo({
-      nameInput: userInputData.fullname,
-      jobInput: userInputData.jobtitle,
-    });
     const userInfoUpdate = api
       .updateUserInfo(userInputData.fullname, userInputData.jobtitle)
-      .then(formEditPopup.close());
+      .then(() => {
+        userInfo.setUserInfo({
+          nameInput: userInputData.fullname,
+          jobInput: userInputData.jobtitle,
+        });
+        formEditPopup.close();
+      });
     userInfoUpdate
       .catch((err) => {
         console.log("Ошибка. Запрос не выполнен: ", err);
@@ -192,10 +180,7 @@ const formEditPopup = new PopupWithForm(
   }
 );
 
-const updateLikesCard = (cardElement, likeCount) => {
-  cardElement.querySelector(".elements__info_like-count").textContent =
-    likeCount;
-};
+popupWithConfirmation.setEventListeners();
 
 buttonEditProfile.addEventListener("click", () => {
   formValidators[formEditPopup.getFormElement().name].resetValidation();
