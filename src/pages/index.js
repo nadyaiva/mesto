@@ -1,12 +1,12 @@
 import "./index.css";
-import { Card } from "../scripts/components/Card.js";
-import FormValidator from "../scripts/components/FormValidator.js";
-import Section from "../scripts/components/Section.js";
-import PopupWithImage from "../scripts/components/PopupWithImage.js";
-import PopupWithForm from "../scripts/components/PopupWithForm.js";
-import PopupWithConfirmation from "../scripts/components/PopupWithConfirmation.js";
-import UserInfo from "../scripts/components/UserInfo.js";
-import Api from "../scripts/components/Api.js";
+import { Card } from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
+import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 const buttonAddPhoto = document.querySelector(".profile__button_type_add");
 const buttonEditProfile = document.querySelector(".profile__button_type_edit");
 const buttonAvatar = document.querySelector(".profile__avatar");
@@ -68,16 +68,6 @@ const popupWithImage = new PopupWithImage(".popup-fullscreen");
 const handleFullscreenClick = (cardItem) => {
   popupWithImage.open(cardItem);
 };
-
-// const handleToggleLikeClick = (card, cardId) => {
-//   api
-//     .changeCardLikeStatus(cardId, !card.isLiked())
-//     .then((data) => {
-//       console.log('andleToggleLikeClick', data)
-//       card.statusliketoggle(data);
-//     })
-//     .catch((err) => console.log(err));
-// };
 
 const popupWithConfirmation = new PopupWithConfirmation(".popup_place_confirm");
 
