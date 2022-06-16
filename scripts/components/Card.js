@@ -16,6 +16,11 @@ export class Card {
     this._buttonLikeElement = this._element.querySelector(
       ".elements__button_like"
     );
+    this._countLikeElem = this._element.querySelector(
+      ".elements__info_like-count"
+    );
+    this._imageElem = this._element.querySelector(".elements__image");
+    this._captionElem = this._element.querySelector(".elements__caption");
     this._handleDelete = handleDeleteClick;
     this._handleToggleLike = handleToggleLike;
     this._userId = userId;
@@ -30,12 +35,10 @@ export class Card {
   }
 
   generateCard() {
-    this._element.querySelector(".elements__image").src = this._cardItem.link;
-    this._element.querySelector(".elements__image").alt = this._cardItem.name;
-    this._element.querySelector(".elements__caption").textContent =
-      this._cardItem.name;
-    this._element.querySelector(".elements__info_like-count").textContent =
-      this._likes.length;
+    this._imageElem.src = this._cardItem.link;
+    this._imageElem.alt = this._cardItem.name;
+    this._captionElem.textContent = this._cardItem.name;
+    this._countLikeElem.textContent = this._likes.length;
     this._setEventListeners();
     if (this._cardItem.owner._id != this._userId) {
       this._trashButtonElement.classList.add("elements__button_trash_hidden");
@@ -58,19 +61,16 @@ export class Card {
       this._handleDelete(this, this._cardItem, this._element);
     });
 
-    this._element
-      .querySelector(".elements__image")
-      .addEventListener("click", () => {
-        this._handleFullscreen();
-      });
+    this._imageElem.addEventListener("click", () => {
+      this._handleFullscreen();
+    });
   }
 
   isLiked() {
     return Boolean(this._likes.find((item) => item._id === this._userId));
   }
   statusliketoggle(data) {
-    this._element.querySelector(".elements__info_like-count").textContent =
-      data.likes.length;
+    this._countLikeElem.textContent = data.likes.length;
     if (!this.isLiked())
       this._buttonLikeElement.classList.add("elements__button_like_active");
     else

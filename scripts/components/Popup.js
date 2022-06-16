@@ -1,8 +1,8 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
+    this._form = this._popup.querySelector('.form')
     this._handleEscClose = this._handleEscClose.bind(this);
-    this.setEventListeners();
   }
 
   // renderLoading(isLoading) {
@@ -17,10 +17,6 @@ export default class Popup {
   //   }
   // }
 
-  getFormElement() {
-    return this._popup.querySelector(".form");
-  }
-
   open() {
     this._popup.classList.add("popup_opened");
     document.addEventListener("keydown", this._handleEscClose);
@@ -30,8 +26,8 @@ export default class Popup {
     document.removeEventListener("keydown", this._handleEscClose);
   }
   _handleEscClose(evt) {
-    const escape = 27;
-    if (evt.which === escape) {
+    const ESC_KEYCODE = 27;
+    if (evt.which === ESC_KEYCODE) {
       const activePopup = document.querySelector(".popup_opened");
       this.close(activePopup);
     }

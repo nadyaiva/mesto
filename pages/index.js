@@ -19,6 +19,19 @@ const config = {
   errorClass: "popup__input-error_active",
 };
 
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    formValidators[formElement.name] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(config);
+
 let userId;
 
 const api = new Api({
@@ -51,19 +64,6 @@ const cardsList = new Section(
   ".elements"
 );
 
-const formValidators = {};
-
-const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement);
-    formValidators[formElement.name] = validator;
-    validator.enableValidation();
-  });
-};
-
-enableValidation(config);
-
 const popupWithImage = new PopupWithImage(".popup-fullscreen");
 const handleFullscreenClick = (cardItem) => {
   popupWithImage.open(cardItem);
@@ -79,22 +79,23 @@ const handleFullscreenClick = (cardItem) => {
 //     .catch((err) => console.log(err));
 // };
 
-const popupWithConfirmation = new PopupWithConfirmation('.popup_place_confirm');
+const popupWithConfirmation = new PopupWithConfirmation(".popup_place_confirm");
 
 function createCard(cardItem) {
   const card = new Card(
     {
       handleCardClick: handleFullscreenClick,
       handleDeleteClick: (cardItem) => {
-        popupWithConfirmation.visualizeLoading('Да')
+        popupWithConfirmation.visualizeLoading("Да");
         popupWithConfirmation.setSubmitHandler(() => {
-            api.deletePost(cardItem._cardItem._id)
+          api
+            .deletePost(cardItem._cardItem._id)
             .then((data) => {
-              popupWithConfirmation.close()
+              popupWithConfirmation.close();
               card.deleteCard();
             })
-            .catch(err => console.log(err))
-            .finally(popupWithConfirmation.visualizeLoading('Удаление...'))
+            .catch((err) => console.log(err))
+            .finally(popupWithConfirmation.visualizeLoading("Удаление..."));
         });
         popupWithConfirmation.open();
       },
@@ -102,11 +103,11 @@ function createCard(cardItem) {
         api
           .changeCardLikeStatus(cardId, !card.isLiked())
           .then((data) => {
-            console.log('andleToggleLikeClick', data)
+            console.log("andleToggleLikeClick", data);
             card.statusliketoggle(data);
           })
           .catch((err) => console.log(err));
-      }
+      },
     },
     cardItem,
     ".element-template_default",
@@ -135,8 +136,6 @@ const formAddPopup = new PopupWithForm(
       });
   }
 );
-
-
 
 const formAvatar = new PopupWithForm(
   ".popup_place_avatar",
@@ -180,20 +179,24 @@ const formEditPopup = new PopupWithForm(
   }
 );
 
+formAvatar.setEventListeners();
+formEditPopup.setEventListeners();
 popupWithConfirmation.setEventListeners();
+formAddPopup.setEventListeners();
+popupWithImage.setEventListeners();
 
 buttonEditProfile.addEventListener("click", () => {
-  formValidators[formEditPopup.getFormElement().name].resetValidation();
+  formValidators['form-profile'].resetValidation();
   formEditPopup.setInputValues(userInfo.getUserInfo());
   formEditPopup.open();
 });
 
 buttonAddPhoto.addEventListener("click", () => {
-  formValidators[formAddPopup.getFormElement().name].resetValidation();
+  formValidators['popup-add-photo'].resetValidation();
   formAddPopup.open();
 });
 
 buttonAvatar.addEventListener("click", () => {
-  formValidators[formAvatar.getFormElement().name].resetValidation();
+  formValidators['popup-avatar'].resetValidation();
   formAvatar.open();
 });

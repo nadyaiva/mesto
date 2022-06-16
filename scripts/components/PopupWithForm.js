@@ -8,7 +8,6 @@ export default class PopupWithForm extends Popup {
     this._inputJob = this._popup.querySelector(".popup__input_type_job");
     this._formValidator = formValidator;
     this._formValidator.resetValidation();
-    this._form = this._popup.querySelector('.form');
     this._submitButton = this._form.querySelector('.popup__save-button');
   }
 
@@ -24,23 +23,23 @@ export default class PopupWithForm extends Popup {
     return this._inputValues;
   }
 
-  setInputValues({ name, job }) {
-    this._inputName.value = name.textContent;
-    this._inputJob.value = job.textContent;
-  }
+  setInputValues(data) {
+    this._inputList.forEach((inputElement) => {
+      inputElement.value = data[inputElement.name].textContent;
+    });
+  } 
 
   close() {
     super.close();
-    this._formValidator.resetValidation();
+    this._form.reset();
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._popup.addEventListener("submit", (evt) => {
+    this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       // super.renderLoading(true);
       this._formSubmit(this._getInputValues());
-      this.close();
     });
   }
 }
