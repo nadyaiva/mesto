@@ -86,16 +86,16 @@ function createCard(cardItem) {
     {
       handleCardClick: handleFullscreenClick,
       handleDeleteClick: (cardItem) => {
-        popupWithConfirmation.visualizeLoading("Да");
+        popupWithConfirmation.renderLoading("Да");
         popupWithConfirmation.setSubmitHandler(() => {
           api
             .deletePost(cardItem._cardItem._id)
             .then((data) => {
-              popupWithConfirmation.close();
               card.deleteCard();
+              popupWithConfirmation.close();
             })
             .catch((err) => console.log(err))
-            .finally(popupWithConfirmation.visualizeLoading("Удаление..."));
+            .finally(popupWithConfirmation.renderLoading("Удаление..."));
         });
         popupWithConfirmation.open();
       },
@@ -121,7 +121,6 @@ const formAddPopup = new PopupWithForm(
   ".popup_place_add-photo",
   formValidators["popup-add-photo"],
   (cardInputData) => {
-    // formAddPopup.renderLoading(true);
     api
       .addNewCard(cardInputData)
       .then((card) => {
@@ -132,7 +131,7 @@ const formAddPopup = new PopupWithForm(
         console.log(err);
       })
       .finally(() => {
-        // formAddPopup.renderLoading(false);
+        formAddPopup.renderLoading('Сохранение...');
       });
   }
 );
@@ -151,7 +150,7 @@ const formAvatar = new PopupWithForm(
         console.log("Ошибка. Запрос не выполнен: ", err);
       })
       .finally(() => {
-        formAvatar.renderLoading(false);
+        formAvatar.renderLoading('Сохранение...');
       });
   }
 );
@@ -174,7 +173,7 @@ const formEditPopup = new PopupWithForm(
         console.log("Ошибка. Запрос не выполнен: ", err);
       })
       .finally(() => {
-        formEditPopup.renderLoading(false);
+        formEditPopup.renderLoading('Сохранение...');
       });
   }
 );
@@ -186,17 +185,20 @@ formAddPopup.setEventListeners();
 popupWithImage.setEventListeners();
 
 buttonEditProfile.addEventListener("click", () => {
-  formValidators['form-profile'].resetValidation();
+  formValidators["form-profile"].resetValidation();
   formEditPopup.setInputValues(userInfo.getUserInfo());
+  formEditPopup.renderLoading('Сохранить');
   formEditPopup.open();
 });
 
 buttonAddPhoto.addEventListener("click", () => {
-  formValidators['popup-add-photo'].resetValidation();
+  formValidators["popup-add-photo"].resetValidation();
+  formAddPopup.renderLoading('Создать');
   formAddPopup.open();
 });
 
 buttonAvatar.addEventListener("click", () => {
-  formValidators['popup-avatar'].resetValidation();
+  formValidators["popup-avatar"].resetValidation();
+  formAvatar.renderLoading('Сохранить');
   formAvatar.open();
 });
