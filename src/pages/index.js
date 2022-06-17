@@ -111,6 +111,7 @@ const formAddPopup = new PopupWithForm(
   ".popup_place_add-photo",
   formValidators["popup-add-photo"],
   (cardInputData) => {
+    formAddPopup.renderLoading("Сохранение...");
     api
       .addNewCard(cardInputData)
       .then((card) => {
@@ -121,7 +122,7 @@ const formAddPopup = new PopupWithForm(
         console.log(err);
       })
       .finally(() => {
-        formAddPopup.renderLoading('Сохранение...');
+        formAddPopup.renderLoading("Создать");
       });
   }
 );
@@ -130,6 +131,7 @@ const formAvatar = new PopupWithForm(
   ".popup_place_avatar",
   formValidators["popup-avatar"],
   (urlImage) => {
+    formAvatar.renderLoading("Сохранение...");
     api
       .updateAvatar(urlImage.link)
       .then((data) => {
@@ -140,7 +142,7 @@ const formAvatar = new PopupWithForm(
         console.log("Ошибка. Запрос не выполнен: ", err);
       })
       .finally(() => {
-        formAvatar.renderLoading('Сохранение...');
+        formAvatar.renderLoading("Сохранить");
       });
   }
 );
@@ -149,6 +151,7 @@ const formEditPopup = new PopupWithForm(
   ".popup_place_edit-profile",
   formValidators["form-profile"],
   (userInputData) => {
+    formEditPopup.renderLoading("Сохранение...");
     const userInfoUpdate = api
       .updateUserInfo(userInputData.fullname, userInputData.jobtitle)
       .then(() => {
@@ -163,7 +166,7 @@ const formEditPopup = new PopupWithForm(
         console.log("Ошибка. Запрос не выполнен: ", err);
       })
       .finally(() => {
-        formEditPopup.renderLoading('Сохранение...');
+        formEditPopup.renderLoading("Сохранить");
       });
   }
 );
@@ -177,18 +180,15 @@ popupWithImage.setEventListeners();
 buttonEditProfile.addEventListener("click", () => {
   formValidators["form-profile"].resetValidation();
   formEditPopup.setInputValues(userInfo.getUserInfo());
-  formEditPopup.renderLoading('Сохранить');
   formEditPopup.open();
 });
 
 buttonAddPhoto.addEventListener("click", () => {
   formValidators["popup-add-photo"].resetValidation();
-  formAddPopup.renderLoading('Создать');
   formAddPopup.open();
 });
 
 buttonAvatar.addEventListener("click", () => {
   formValidators["popup-avatar"].resetValidation();
-  formAvatar.renderLoading('Сохранить');
   formAvatar.open();
 });

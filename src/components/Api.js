@@ -54,12 +54,12 @@ export default class Api {
   }
 
   changeCardLikeStatus(cardId, isLiked) {
-      return fetch(`${this._baseurl}${this._cohort}/cards/${cardId}/likes`, {
-        method: isLiked ? 'PUT' : 'DELETE',
-        headers: {
-          authorization: this._authorization,
-        },
-      }).then(this._handleResponse);
+    return fetch(`${this._baseurl}${this._cohort}/cards/${cardId}/likes`, {
+      method: isLiked ? "PUT" : "DELETE",
+      headers: {
+        authorization: this._authorization,
+      },
+    }).then(this._handleResponse);
   }
 
   deletePost(cardId) {
