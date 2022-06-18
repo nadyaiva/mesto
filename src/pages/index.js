@@ -85,7 +85,7 @@ function createCard(cardItem) {
               popupWithConfirmation.close();
             })
             .catch((err) => console.log(err))
-            .finally(popupWithConfirmation.renderLoading("Да"));
+            .finally(() => popupWithConfirmation.renderLoading("Да"));
         });
         popupWithConfirmation.open();
       },
