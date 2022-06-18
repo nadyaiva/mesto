@@ -76,8 +76,8 @@ function createCard(cardItem) {
     {
       handleCardClick: handleFullscreenClick,
       handleDeleteClick: (cardItem) => {
-        popupWithConfirmation.renderLoading("Да");
         popupWithConfirmation.setSubmitHandler(() => {
+          popupWithConfirmation.renderLoading("Удаление...");
           api
             .deletePost(cardItem._cardItem._id)
             .then((data) => {
@@ -85,7 +85,7 @@ function createCard(cardItem) {
               popupWithConfirmation.close();
             })
             .catch((err) => console.log(err))
-            .finally(popupWithConfirmation.renderLoading("Удаление..."));
+            .finally(popupWithConfirmation.renderLoading("Да"));
         });
         popupWithConfirmation.open();
       },
